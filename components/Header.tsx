@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, PenTool } from 'lucide-react';
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  onLogin: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ onLogin }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -21,7 +25,7 @@ export const Header: React.FC = () => {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-2 cursor-pointer">
+        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
           <div className="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white">
             <PenTool size={18} />
           </div>
@@ -30,11 +34,14 @@ export const Header: React.FC = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
-          <a href="#" className="text-slate-600 hover:text-brand-600 font-medium transition-colors">Features</a>
-          <a href="#" className="text-slate-600 hover:text-brand-600 font-medium transition-colors">Pricing</a>
+          <a href="#features" className="text-slate-600 hover:text-brand-600 font-medium transition-colors">Features</a>
+          <a href="#pricing" className="text-slate-600 hover:text-brand-600 font-medium transition-colors">Pricing</a>
           <a href="#" className="text-slate-600 hover:text-brand-600 font-medium transition-colors">Blog</a>
-          <a href="#" className="text-slate-600 hover:text-brand-600 font-medium transition-colors">Log in</a>
-          <button className="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-full font-medium transition-all shadow-lg shadow-brand-500/20">
+          <button onClick={onLogin} className="text-slate-600 hover:text-brand-600 font-medium transition-colors">Log in</button>
+          <button 
+            onClick={onLogin}
+            className="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-full font-medium transition-all shadow-lg shadow-brand-500/20"
+          >
             Get Started
           </button>
         </nav>
@@ -51,11 +58,11 @@ export const Header: React.FC = () => {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-100 p-6 flex flex-col gap-4 shadow-lg">
-          <a href="#" className="text-slate-600 font-medium">Features</a>
-          <a href="#" className="text-slate-600 font-medium">Pricing</a>
+          <a href="#features" className="text-slate-600 font-medium">Features</a>
+          <a href="#pricing" className="text-slate-600 font-medium">Pricing</a>
           <a href="#" className="text-slate-600 font-medium">Blog</a>
-          <a href="#" className="text-slate-600 font-medium">Log in</a>
-          <button className="bg-brand-600 text-white px-5 py-3 rounded-xl font-medium w-full">
+          <button onClick={onLogin} className="text-slate-600 font-medium text-left">Log in</button>
+          <button onClick={onLogin} className="bg-brand-600 text-white px-5 py-3 rounded-xl font-medium w-full">
             Get Started
           </button>
         </div>

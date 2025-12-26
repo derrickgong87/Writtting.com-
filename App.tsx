@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { ComparisonDemo } from './components/ComparisonDemo';
@@ -7,21 +7,34 @@ import { Features } from './components/Features';
 import { Pricing } from './components/Pricing';
 import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
+import { Dashboard } from './components/Dashboard';
 
 const App: React.FC = () => {
+  // Simple state-based routing to show either the Landing Page or the Dashboard
+  const [currentView, setCurrentView] = useState<'landing' | 'dashboard'>('landing');
+
+  const handleStart = () => {
+    setCurrentView('dashboard');
+    window.scrollTo(0, 0);
+  };
+
+  if (currentView === 'dashboard') {
+    return <Dashboard />;
+  }
+
   return (
     <div className="min-h-screen flex flex-col font-sans">
-      <Header />
+      <Header onLogin={handleStart} />
       <main className="flex-grow">
-        <Hero />
-        {/* The requested visual change: Comparison Image Section First */}
+        <Hero onStart={handleStart} />
+        {/* Comparison Section */}
         <ComparisonDemo />
-        {/* The requested functional change: Moved Text Humanizer Here */}
+        {/* Landing Page Demo Tool */}
         <TextHumanizer />
         <Features />
         {/* Pricing Section */}
-        <Pricing />
-        {/* New Testimonials Section */}
+        <Pricing onStart={handleStart} />
+        {/* Testimonials */}
         <Testimonials />
       </main>
       <Footer />

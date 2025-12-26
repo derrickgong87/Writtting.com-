@@ -1,20 +1,17 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
-export const Hero: React.FC = () => {
+interface HeroProps {
+  onStart: () => void;
+}
+
+export const Hero: React.FC<HeroProps> = ({ onStart }) => {
   return (
     <section className="relative pt-32 pb-20 overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-100/50 via-transparent to-transparent -z-10" />
 
       <div className="container mx-auto px-6 text-center max-w-4xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-sm font-semibold mb-6 animate-fade-in-up">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-          </span>
-          #1 AI Humanizer Tool
-        </div>
         
         <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-6 leading-[1.1]">
           Make AI Text <br />
@@ -26,7 +23,10 @@ export const Hero: React.FC = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-          <button className="px-8 py-4 bg-slate-900 text-white rounded-full font-semibold hover:bg-slate-800 transition-all flex items-center gap-2 shadow-xl shadow-slate-900/10">
+          <button 
+            onClick={onStart}
+            className="px-8 py-4 bg-slate-900 text-white rounded-full font-semibold hover:bg-slate-800 transition-all flex items-center gap-2 shadow-xl shadow-slate-900/10"
+          >
             Start Humanizing Free
             <ArrowRight size={18} />
           </button>
@@ -36,9 +36,6 @@ export const Hero: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm font-medium text-slate-500">
-          <span className="flex items-center gap-2">
-            <CheckCircle2 size={16} className="text-green-500" /> No Sign-up Required
-          </span>
           <span className="flex items-center gap-2">
             <CheckCircle2 size={16} className="text-green-500" /> 100% Plagiarism Free
           </span>

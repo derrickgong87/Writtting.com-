@@ -1,60 +1,74 @@
 import React, { useState } from 'react';
-import { Check, X, Zap, Info, ShieldCheck } from 'lucide-react';
+import { Check, X, Zap, Info, ShieldCheck, ArrowRight } from 'lucide-react';
 
-export const Pricing: React.FC = () => {
+interface PricingProps {
+  onStart: () => void;
+}
+
+export const Pricing: React.FC<PricingProps> = ({ onStart }) => {
   const [isAnnual, setIsAnnual] = useState(true);
 
+  // Math: Monthly Price * 12 * 0.6 (40% off) / 12 = Monthly Price * 0.6
+  // Rounding for cleaner display
+  
   const plans = [
     {
-      name: "Starter",
-      description: "Perfect for testing the waters.",
+      name: "Free",
+      description: "For testing.",
       price: "Free",
       period: "forever",
       features: [
-        { text: "300 words per request", included: true },
-        { text: "Daily Limit: 1,000 words", included: true },
-        { text: "Basic Humanizer Mode", included: true },
-        { text: "Standard Processing", included: true },
-        { text: "Bypass Basic Detectors", included: true },
-        { text: "Advanced Formatting", included: false },
-        { text: "No Plagiarism Scan", included: false },
+        { text: "300 words/request", included: true },
+        { text: "1,000 words/day", included: true },
+        { text: "Basic Mode", included: true },
+        { text: "No Advanced Features", included: false },
       ],
       buttonVariant: "outline",
       popular: false
     },
     {
-      name: "Unlimited",
-      description: "For students & content creators.",
-      price: isAnnual ? "$9.99" : "$19.99",
+      name: "Basic",
+      description: "Light usage.",
+      price: isAnnual ? "$5.99" : "$9.99",
       period: "per month",
-      billingNote: isAnnual ? "Billed $119.88 yearly" : "Billed monthly",
-      saveBadge: isAnnual ? "SAVE 50%" : null,
+      billingNote: isAnnual ? "Billed $71.88 yearly" : "Billed monthly",
       features: [
-        { text: "Unlimited Words / Month", included: true, bold: true },
-        { text: "2,500 words per request", included: true },
-        { text: "Bypass Turnitin & GPTZero", included: true },
-        { text: "All Modes (Standard, Academic, Aggressive)", included: true },
-        { text: "Built-in Plagiarism Scan", included: true },
-        { text: "No Watermark", included: true },
-        { text: "Priority Support", included: true },
+        { text: "Unlimited words", included: true },
+        { text: "1,000 words/request", included: true },
+        { text: "Standard Mode", included: true },
+        { text: "Basic Bypass", included: true },
+      ],
+      buttonVariant: "outline",
+      popular: false
+    },
+    {
+      name: "Pro",
+      description: "Best for students.",
+      price: isAnnual ? "$11.99" : "$19.99",
+      period: "per month",
+      billingNote: isAnnual ? "Billed $143.88 yearly" : "Billed monthly",
+      features: [
+        { text: "Unlimited words", included: true, bold: true },
+        { text: "2,500 words/request", included: true },
+        { text: "All Humanizer Modes", included: true },
+        { text: "Bypass Turnitin", included: true },
+        { text: "Plagiarism Scan", included: true },
       ],
       buttonVariant: "solid",
       popular: true
     },
     {
-      name: "Business",
-      description: "For agencies & heavy volume.",
-      price: isAnnual ? "$24.99" : "$49.99",
+      name: "Ultra",
+      description: "Power users.",
+      price: isAnnual ? "$23.99" : "$39.99",
       period: "per month",
-      billingNote: isAnnual ? "Billed $299.88 yearly" : "Billed monthly",
+      billingNote: isAnnual ? "Billed $287.88 yearly" : "Billed monthly",
       features: [
-        { text: "Unlimited Words / Month", included: true, bold: true },
-        { text: "10,000 words per request", included: true },
+        { text: "Unlimited words", included: true, bold: true },
+        { text: "10,000 words/request", included: true },
         { text: "Bulk File Uploads", included: true },
         { text: "API Access", included: true },
-        { text: "Team Management (5 Seats)", included: true },
-        { text: "Dedicated Account Manager", included: true },
-        { text: "Early Access to Beta Models", included: true },
+        { text: "Priority Support", included: true },
       ],
       buttonVariant: "outline",
       popular: false
@@ -63,17 +77,17 @@ export const Pricing: React.FC = () => {
 
   return (
     <section className="py-24 bg-white border-t border-slate-100" id="pricing">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
-            Plans that pay for themselves
+            Plans for every writer
           </h2>
           <p className="text-lg text-slate-500 mb-10 max-w-2xl mx-auto">
-            Stop worrying about AI detection. Join 100,000+ writers who trust us to humanize their content.
+            Choose the plan that fits your needs. Cancel anytime.
           </p>
 
           {/* Billing Toggle */}
-          <div className="flex items-center justify-center gap-4 select-none">
+          <div className="flex items-center justify-center gap-4 select-none mb-8">
             <span 
                 className={`text-sm font-semibold cursor-pointer transition-colors ${!isAnnual ? 'text-slate-900' : 'text-slate-400'}`}
                 onClick={() => setIsAnnual(false)}
@@ -90,60 +104,54 @@ export const Pricing: React.FC = () => {
                 className={`text-sm font-semibold cursor-pointer transition-colors flex items-center gap-2 ${isAnnual ? 'text-slate-900' : 'text-slate-400'}`}
                 onClick={() => setIsAnnual(true)}
             >
-              Yearly <span className="text-brand-600 text-xs bg-brand-50 border border-brand-100 px-2 py-0.5 rounded-full font-bold">SAVE 50%</span>
+              Yearly <span className="text-brand-600 text-xs bg-brand-50 border border-brand-100 px-2 py-0.5 rounded-full font-bold">SAVE 40%</span>
             </span>
           </div>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
+        {/* Pricing Cards - 4 Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto items-start">
           {plans.map((plan, idx) => (
             <div 
               key={idx}
-              className={`relative flex flex-col p-8 rounded-3xl transition-all duration-300 cursor-default ${
+              className={`relative flex flex-col p-6 rounded-2xl transition-all duration-300 cursor-default h-full ${
                 plan.popular 
                   ? 'bg-slate-900 text-white shadow-2xl scale-105 z-10 hover:scale-[1.07] hover:shadow-brand-900/40 ring-1 ring-slate-900' 
                   : 'bg-white border border-slate-200 text-slate-900 hover:border-brand-400 hover:shadow-xl hover:-translate-y-2'
               }`}
             >
               {plan.popular && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-brand-500 to-indigo-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg flex items-center gap-1 whitespace-nowrap">
-                  <Zap size={14} fill="currentColor" /> Most Popular
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-brand-500 to-indigo-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 whitespace-nowrap">
+                  <Zap size={12} fill="currentColor" /> Most Popular
                 </div>
               )}
 
-              {plan.saveBadge && (
-                 <div className="absolute top-6 right-6 text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded-md">
-                    {plan.saveBadge}
-                 </div>
-              )}
-
-              <div className="mb-6">
-                <h3 className={`text-xl font-bold mb-2 ${plan.popular ? 'text-white' : 'text-slate-900'}`}>{plan.name}</h3>
-                <p className={`text-sm ${plan.popular ? 'text-slate-400' : 'text-slate-500'}`}>{plan.description}</p>
+              <div className="mb-4">
+                <h3 className={`text-lg font-bold mb-1 ${plan.popular ? 'text-white' : 'text-slate-900'}`}>{plan.name}</h3>
+                <p className={`text-xs ${plan.popular ? 'text-slate-400' : 'text-slate-500'}`}>{plan.description}</p>
               </div>
 
-              <div className="mb-8">
+              <div className="mb-6">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-extrabold tracking-tight">{plan.price}</span>
+                  <span className="text-3xl font-extrabold tracking-tight">{plan.price}</span>
                   {plan.price !== 'Free' && (
-                     <span className={`text-sm font-medium ${plan.popular ? 'text-slate-400' : 'text-slate-500'}`}>/{plan.period}</span>
+                     <span className={`text-xs font-medium ${plan.popular ? 'text-slate-400' : 'text-slate-500'}`}>/{plan.period}</span>
                   )}
                 </div>
                 {plan.billingNote && (
-                    <p className={`text-xs mt-2 ${plan.popular ? 'text-slate-400' : 'text-slate-500'}`}>{plan.billingNote}</p>
+                    <p className={`text-[10px] mt-1 ${plan.popular ? 'text-slate-400' : 'text-slate-500'}`}>{plan.billingNote}</p>
                 )}
               </div>
 
-              <div className={`h-px w-full mb-8 ${plan.popular ? 'bg-slate-700' : 'bg-slate-100'}`}></div>
+              <div className={`h-px w-full mb-6 ${plan.popular ? 'bg-slate-700' : 'bg-slate-100'}`}></div>
 
-              <ul className="flex-1 space-y-4 mb-8">
+              <ul className="flex-1 space-y-3 mb-6">
                 {plan.features.map((feature, fIdx) => (
-                  <li key={fIdx} className="flex items-start gap-3 text-sm">
+                  <li key={fIdx} className="flex items-start gap-2 text-xs">
                     {feature.included ? (
-                      <Check size={18} className={`shrink-0 ${plan.popular ? 'text-brand-400' : 'text-brand-600'}`} />
+                      <Check size={14} className={`shrink-0 ${plan.popular ? 'text-brand-400' : 'text-brand-600'}`} />
                     ) : (
-                      <X size={18} className="shrink-0 text-slate-300" />
+                      <X size={14} className="shrink-0 text-slate-300" />
                     )}
                     <span className={`${
                       !feature.included 
@@ -152,12 +160,13 @@ export const Pricing: React.FC = () => {
                     } ${feature.bold ? 'font-bold' : ''}`}>
                       {feature.text}
                     </span>
-                    {feature.text.includes("Info") && <Info size={14} className="text-slate-400" />}
                   </li>
                 ))}
               </ul>
 
-              <button className={`w-full py-4 rounded-xl font-bold transition-all ${
+              <button 
+                onClick={onStart}
+                className={`w-full py-3 rounded-lg font-bold text-sm transition-all ${
                 plan.popular
                   ? 'bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-900/50 hover:shadow-brand-900/80'
                   : 'bg-slate-50 hover:bg-slate-100 text-slate-900 border border-slate-200 hover:border-slate-300'
@@ -168,15 +177,29 @@ export const Pricing: React.FC = () => {
           ))}
         </div>
 
+        {/* CTA Section */}
+        <div className="mt-24 relative rounded-3xl overflow-hidden bg-slate-900 px-6 py-16 text-center shadow-2xl">
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-900/40 via-transparent to-transparent"></div>
+             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">
+                Ready to make your content undetectable?
+             </h2>
+             <p className="text-slate-400 mb-8 max-w-xl mx-auto relative z-10">
+                Join thousands of students and professionals who trust Writtting to refine their work. No credit card required for the free plan.
+             </p>
+             <button 
+                onClick={onStart}
+                className="relative z-10 px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white rounded-full font-bold text-lg shadow-lg shadow-brand-900/50 hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto"
+            >
+                Try It Now <ArrowRight size={20} />
+             </button>
+        </div>
+
         {/* Guarantee */}
-        <div className="mt-16 flex flex-col items-center justify-center text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-full border border-slate-100 text-slate-600 text-sm">
-                <ShieldCheck size={18} className="text-green-500" />
-                <span><strong>3-Day Money-Back Guarantee.</strong> If it doesn't bypass detection, we'll refund you.</span>
+        <div className="mt-12 flex flex-col items-center justify-center text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-full border border-slate-100 text-slate-600 text-xs">
+                <ShieldCheck size={14} className="text-green-500" />
+                <span><strong>3-Day Money-Back Guarantee.</strong> Risk-free trial.</span>
             </div>
-            <p className="mt-4 text-xs text-slate-400">
-                Secure payment via Stripe. Cancel anytime in your dashboard.
-            </p>
         </div>
       </div>
     </section>
