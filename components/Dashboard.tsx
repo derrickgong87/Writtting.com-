@@ -880,21 +880,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
         )}
       </main>
       
-      {/* Support Widget */}
-      <div className="fixed bottom-36 right-6 z-50">
-        <a 
-          href="mailto:humanizer.help@gmail.com"
-          className="bg-white p-2.5 rounded-2xl shadow-xl border border-slate-200 flex items-center gap-3 hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
-        >
-            <div className="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center overflow-hidden border border-slate-100">
-                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix" alt="Support" className="w-full h-full object-cover" />
-            </div>
-            <div className="text-xs mr-2">
-                <p className="font-bold text-slate-800 mb-0.5">Questions?</p>
-                <p className="text-brand-600 font-medium group-hover:underline">Contact Support</p>
-            </div>
-        </a>
-      </div>
+      {/* Support Widget - Only visible in Account Settings */}
+      {activeTab === 'settings' && (
+        <div className="fixed bottom-36 right-6 z-50">
+            <a 
+            href="mailto:humanizer.help@gmail.com"
+            className="bg-white p-2.5 rounded-2xl shadow-xl border border-slate-200 flex items-center gap-3 hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
+            >
+                <div className="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center overflow-hidden border border-slate-100">
+                    <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix" alt="Support" className="w-full h-full object-cover" />
+                </div>
+                <div className="text-xs mr-2">
+                    <p className="font-bold text-slate-800 mb-0.5">Questions?</p>
+                    <p className="text-brand-600 font-medium group-hover:underline">Contact Support</p>
+                </div>
+            </a>
+        </div>
+      )}
     </div>
   );
 };
