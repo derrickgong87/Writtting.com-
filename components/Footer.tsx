@@ -1,7 +1,18 @@
 import React from 'react';
 import { PenTool, Twitter, Github, Linkedin } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigate?: (section: string) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+  const handleLinkClick = (e: React.MouseEvent, section: string) => {
+    e.preventDefault();
+    if (onNavigate) {
+      onNavigate(section);
+    }
+  };
+
   return (
     <footer className="bg-slate-900 text-slate-300 py-16">
       <div className="container mx-auto px-6">
@@ -26,18 +37,18 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="text-white font-semibold mb-6">Product</h4>
             <ul className="space-y-4 text-sm">
-              <li><a href="#" className="hover:text-brand-400 transition-colors">AI Humanizer</a></li>
-              <li><a href="#" className="hover:text-brand-400 transition-colors">AI Detector</a></li>
-              <li><a href="#" className="hover:text-brand-400 transition-colors">Pricing</a></li>
+              <li><button onClick={(e) => handleLinkClick(e, 'dashboard')} className="hover:text-brand-400 transition-colors text-left">AI Humanizer</button></li>
+              <li><button onClick={(e) => handleLinkClick(e, 'dashboard')} className="hover:text-brand-400 transition-colors text-left">AI Detector</button></li>
+              <li><button onClick={(e) => handleLinkClick(e, 'pricing')} className="hover:text-brand-400 transition-colors text-left">Pricing</button></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-white font-semibold mb-6">Resources</h4>
             <ul className="space-y-4 text-sm">
-              <li><a href="#" className="hover:text-brand-400 transition-colors">Blog</a></li>
+              <li><button onClick={(e) => handleLinkClick(e, 'blog')} className="hover:text-brand-400 transition-colors text-left">Blog</button></li>
               <li><a href="#" className="hover:text-brand-400 transition-colors">Case Studies</a></li>
-              <li><a href="#" className="hover:text-brand-400 transition-colors">Help Center</a></li>
+              <li><button onClick={(e) => handleLinkClick(e, 'help')} className="hover:text-brand-400 transition-colors text-left">Help Center</button></li>
               <li><a href="#" className="hover:text-brand-400 transition-colors">Affiliate Program</a></li>
             </ul>
           </div>
@@ -45,8 +56,8 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="text-white font-semibold mb-6">Legal</h4>
             <ul className="space-y-4 text-sm">
-              <li><a href="#" className="hover:text-brand-400 transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-brand-400 transition-colors">Terms of Service</a></li>
+              <li><button onClick={(e) => handleLinkClick(e, 'privacy')} className="hover:text-brand-400 transition-colors text-left">Privacy Policy</button></li>
+              <li><button onClick={(e) => handleLinkClick(e, 'terms')} className="hover:text-brand-400 transition-colors text-left">Terms of Service</button></li>
               <li><a href="#" className="hover:text-brand-400 transition-colors">Cookie Policy</a></li>
             </ul>
           </div>

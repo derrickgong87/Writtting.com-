@@ -17,6 +17,7 @@ import {
   Check,
   ShieldCheck,
   Zap,
+  Gauge,
   PackagePlus,
   Trash2,
   Edit,
@@ -285,6 +286,37 @@ const InviteModal = ({ onClose }: { onClose: () => void }) => {
 
 // --- Main Dashboard Component ---
 
+// Modes Configuration
+const HUMANIZER_MODES = {
+  balanced: {
+    id: 'balanced',
+    name: 'Balanced Mode',
+    icon: ShieldCheck,
+    color: 'text-green-500',
+    title: 'Balanced Mode',
+    description: 'Modifies text moderately while maintaining original meaning. Balances humanization and readability.',
+    points: ['Moderate restructuring', 'Preserves key terms', 'Standard flow']
+  },
+  aggressive: {
+    id: 'aggressive',
+    name: 'Aggressive Mode',
+    icon: Zap,
+    color: 'text-orange-500',
+    title: 'Aggressive Mode',
+    description: 'Make drastic changes to bypass advanced detection tools.',
+    points: ['Completely reconstruct sentence structure', 'Use more synonym replacements', 'Change paragraph organization']
+  },
+  fast: {
+    id: 'fast',
+    name: 'Fast Mode',
+    icon: Gauge,
+    color: 'text-blue-500',
+    title: 'Fast Mode',
+    description: 'Make minimal changes to maintain original style and structure.',
+    points: ['Slightly adjust wording', 'Maintain original structure', 'Fast processing']
+  }
+};
+
 export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) => {
   const [activeTab, setActiveTab] = useState('humanize');
   const [inputText, setInputText] = useState('');
@@ -292,6 +324,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showInviteModal, setShowInviteModal] = useState(false);
+  const [humanizerMode, setHumanizerMode] = useState<keyof typeof HUMANIZER_MODES>('balanced');
+  const [isModeDropdownOpen, setIsModeDropdownOpen] = useState(false);
   
   // Dashboard Pricing State
   const [isAnnual, setIsAnnual] = useState(true);
@@ -327,6 +361,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const currentMode = HUMANIZER_MODES[humanizerMode];
 
   // Pricing Data
   const plans = [
@@ -629,18 +665,59 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
            <div className="h-20 bg-white border-t border-slate-100 px-8 flex items-center justify-between shrink-0">
              <div className="flex items-center gap-4">
                <span className="text-slate-500 text-sm">Mode:</span>
-               <div className="relative group">
-                 <button className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-700 hover:border-brand-300">
-                   <ShieldCheck size={16} className="text-green-500" /> Balanced Mode <ChevronDown size={14} />
+               
+               {/* Mode Selector Dropdown */}
+               <div className="relative">
+                 <button 
+                    onClick={() => setIsModeDropdownOpen(!isModeDropdownOpen)}
+                    className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-700 hover:border-brand-300 min-w-[180px] justify-between group"
+                 >
+                   <div className="flex items-center gap-2">
+                     <currentMode.icon size={16} className={currentMode.color} /> 
+                     {currentMode.name}
+                   </div>
+                   <ChevronDown size={14} className="text-slate-400" />
                  </button>
-                 {/* Tooltip Description */}
-                 <div className="absolute bottom-full left-0 mb-2 w-64 bg-white border border-slate-200 shadow-xl rounded-xl p-4 hidden group-hover:block">
+
+                 {/* Dropdown Menu */}
+                 {isModeDropdownOpen && (
+                   <>
+                     <div className="fixed inset-0 z-10" onClick={() => setIsModeDropdownOpen(false)}></div>
+                     <div className="absolute bottom-full left-0 mb-2 w-56 bg-white border border-slate-100 shadow-xl rounded-xl overflow-hidden z-20">
+                       {Object.values(HUMANIZER_MODES).map((mode) => (
+                         <button
+                           key={mode.id}
+                           onClick={() => {
+                             setHumanizerMode(mode.id as any);
+                             setIsModeDropdownOpen(false);
+                           }}
+                           className="w-full px-4 py-3 text-left hover:bg-slate-50 flex items-center gap-3 transition-colors"
+                         >
+                           <mode.icon size={16} className={mode.color} />
+                           <span className="text-sm font-medium text-slate-700">{mode.name}</span>
+                           {humanizerMode === mode.id && <Check size={14} className="ml-auto text-brand-600" />}
+                         </button>
+                       ))}
+                     </div>
+                   </>
+                 )}
+
+                 {/* Tooltip Description (Shows for current selection when dropdown is closed, or hover over main button) */}
+                 <div className="absolute bottom-full left-0 mb-3 w-72 bg-white border border-slate-200 shadow-2xl rounded-2xl p-5 hidden group-hover:block z-30 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-200">
                     <h4 className="font-bold text-slate-900 text-sm flex items-center gap-2 mb-2">
-                       <ShieldCheck size={14} className="text-green-500" /> Balanced Mode
+                       <currentMode.icon size={16} className={currentMode.color} /> {currentMode.title}
                     </h4>
-                    <p className="text-xs text-slate-500 leading-relaxed mb-2">
-                       Modifies text moderately while maintaining original meaning. Balances humanization and readability.
+                    <p className="text-xs text-slate-500 leading-relaxed mb-3">
+                       {currentMode.description}
                     </p>
+                    <ul className="space-y-1.5">
+                        {currentMode.points.map((p, i) => (
+                            <li key={i} className="text-[10px] text-slate-600 flex items-start gap-1.5">
+                                <div className="w-1 h-1 rounded-full bg-slate-300 mt-1.5 shrink-0"></div>
+                                {p}
+                            </li>
+                        ))}
+                    </ul>
                  </div>
                </div>
              </div>

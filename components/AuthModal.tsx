@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { X, Mail, Lock, ArrowRight, User, ChevronLeft } from 'lucide-react';
+import { TermsOfServiceText } from './LegalDocs';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -59,49 +60,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
                 <h2 className="text-xl font-bold text-white">Terms of Service</h2>
             </div>
             
-            <div className="p-8 overflow-y-auto text-sm text-slate-600 leading-relaxed space-y-8">
-                {/* 1. Privacy & General (Least sensitive) */}
-                <section>
-                    <h3 className="font-bold text-slate-900 mb-2 text-base">1. User Privacy & Data Protection</h3>
-                    <p className="mb-2">We value your privacy and are committed to protecting your personal data.</p>
-                    <ul className="list-disc pl-5 space-y-2">
-                        <li><strong>Data Security:</strong> All submitted texts are encrypted during processing. We do not sell or share your original or processed content with third parties for advertising purposes.</li>
-                        <li><strong>Account Safety:</strong> You are responsible for maintaining the confidentiality of your account credentials.</li>
-                    </ul>
-                </section>
-
-                {/* 2. User Obligations */}
-                <section>
-                    <h3 className="font-bold text-slate-900 mb-2 text-base">2. User Obligations</h3>
-                    <p className="mb-2">By using Humanizer.help, you agree to:</p>
-                    <ul className="list-disc pl-5 space-y-2">
-                        <li><strong>Academic Integrity:</strong> Use this tool responsibly. You are obligated to ensure that your use of our services complies with your institution's academic integrity policies and guidelines regarding AI assistance.</li>
-                        <li><strong>Lawful Use:</strong> Do not use the service to generate content that is illegal, harmful, or violates the intellectual property rights of others.</li>
-                    </ul>
-                </section>
-
-                {/* 3. Service Limitations (The "AI Disclaimer" - Softened) */}
-                <section>
-                    <h3 className="font-bold text-slate-900 mb-2 text-base">3. Service Limitations</h3>
-                    <p className="mb-2">We employ industry-leading algorithms to refine AI-generated text. However, due to the rapidly evolving nature of AI detection technology, we wish to clarify the following:</p>
-                    <ul className="list-disc pl-5 space-y-2">
-                        <li><strong>Detection Probability:</strong> While we aim for the highest standards, current technology cannot guarantee that content will be 100% undetectable by all third-party software (e.g., Turnitin, GPTZero) at all times.</li>
-                        <li><strong>Detector Accuracy:</strong> Please note that AI detection tools themselves are not infallible and may produce false positives or inconsistent results.</li>
-                        <li><strong>Evolving Models:</strong> Detection models update frequently. A text that passes verification today may be evaluated differently by future versions of detection software.</li>
-                        <li><strong>Liability:</strong> Humanizer.help provides this tool as a writing aid. We do not assume legal liability for the specific context in which the text is used or any consequential outcomes.</li>
-                    </ul>
-                </section>
-
-                {/* 4. Refunds & Subscriptions (Most sensitive/Strict) */}
-                <section>
-                    <h3 className="font-bold text-slate-900 mb-2 text-base">4. Refund & Subscription Policy</h3>
-                    <p className="mb-2">Please review our refund and subscription terms carefully:</p>
-                    <ul className="list-disc pl-5 space-y-2">
-                        <li><strong>Refund Eligibility:</strong> Refunds are generally not provided if you have utilized more than <strong>200 words</strong> of your paid subscription plan. This threshold applies after your initial free quota is exhausted.</li>
-                        <li><strong>Plan Downgrades:</strong> Direct switching from a higher-value plan to a lower-value plan (with a prorated refund) is not supported. To switch to a lower plan, please cancel your current subscription; the change will take effect after your current billing cycle ends.</li>
-                        <li><strong>Word Credits:</strong> Monthly word credits reset at the start of each billing cycle and do not roll over to the next month.</li>
-                    </ul>
-                </section>
+            <div className="p-8 overflow-y-auto">
+                <TermsOfServiceText />
             </div>
           </div>
         </div>
