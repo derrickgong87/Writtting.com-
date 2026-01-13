@@ -26,7 +26,8 @@ import {
   Users,
   GraduationCap,
   HelpCircle,
-  Settings
+  Settings,
+  Cpu
 } from 'lucide-react';
 import { humanizeText, evaluatePaper } from '../services/ai';
 
@@ -38,6 +39,10 @@ interface DashboardProps {
 // --- Sub-Components (Views) ---
 
 const DetectorView = () => {
+  const [algorithm, setAlgorithm] = useState('GPTZero');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const algorithms = ['GPTZero', 'Turnitin', 'Originality.ai'];
+
   return (
     <div className="flex flex-col h-full">
       <div className="mb-4 flex items-center gap-3">
@@ -77,13 +82,38 @@ const DetectorView = () => {
       {/* Bottom Bar */}
       <div className="mt-6 flex items-center gap-4">
          <span className="text-sm font-medium text-slate-500">Algorithm:</span>
-         <div className="relative">
-             <select className="appearance-none bg-white border border-slate-200 text-slate-700 pl-4 pr-10 py-2.5 rounded-lg text-sm font-medium focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none cursor-pointer min-w-[150px]">
-                 <option>GPTZero</option>
-                 <option>Turnitin</option>
-                 <option>Originality.ai</option>
-             </select>
-             <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+         
+         {/* Custom Dropdown matched to Humanizer Mode UI */}
+         <div className="relative group">
+             <button 
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-700 hover:border-brand-300 min-w-[180px] justify-between transition-colors focus:outline-none"
+             >
+                 <div className="flex items-center gap-2">
+                    <Cpu size={16} className="text-brand-600" />
+                    <span>{algorithm}</span>
+                 </div>
+                 <ChevronDown size={14} className="text-slate-400" />
+             </button>
+             
+             {isDropdownOpen && (
+                 <>
+                    <div className="fixed inset-0 z-10" onClick={() => setIsDropdownOpen(false)}></div>
+                    <div className="absolute bottom-full left-0 mb-2 w-full bg-white border border-slate-100 shadow-xl rounded-xl overflow-hidden z-20 animate-in fade-in slide-in-from-bottom-2 duration-150">
+                        {algorithms.map(algo => (
+                            <button
+                                key={algo}
+                                onClick={() => { setAlgorithm(algo); setIsDropdownOpen(false); }}
+                                className="w-full px-4 py-3 text-left hover:bg-slate-50 text-sm text-slate-700 flex items-center gap-3 transition-colors"
+                            >
+                                <Cpu size={16} className={algorithm === algo ? "text-brand-600" : "text-slate-400"} />
+                                <span className="flex-1">{algo}</span>
+                                {algorithm === algo && <Check size={14} className="text-brand-600" />}
+                            </button>
+                        ))}
+                    </div>
+                 </>
+             )}
          </div>
 
          <div className="flex-1"></div>
@@ -96,7 +126,7 @@ const DetectorView = () => {
   );
 };
 
-const PaperEvaluationView = () => {
+const PaperReviewView = () => {
   const [text, setText] = useState('');
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
@@ -111,19 +141,14 @@ const PaperEvaluationView = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="mb-4 flex items-center gap-3">
-        <h2 className="text-2xl font-bold text-slate-900">Paper Evaluation</h2>
-        <span className="bg-brand-50 text-brand-700 border border-brand-100 px-3 py-1 rounded-full text-xs font-bold">
-          FREE
-        </span>
-      </div>
-
+      {/* Title removed per request to eliminate whitespace */}
+      
       <div className="flex flex-1 gap-6 min-h-0">
         {/* Left Input */}
         <div className="flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col p-6">
           <textarea 
             className="flex-1 resize-none outline-none text-slate-700 placeholder:text-slate-400 text-base leading-relaxed"
-            placeholder="Paste your essay or research paper here for a comprehensive evaluation..."
+            placeholder="Paste your essay or research paper here for a comprehensive review..."
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
@@ -176,7 +201,7 @@ const PaperEvaluationView = () => {
                 : 'bg-brand-600 hover:bg-brand-700 shadow-brand-500/20'
             }`}
          >
-             <Sparkles size={16} /> Evaluate Paper
+             <Sparkles size={16} /> Review Paper
          </button>
       </div>
     </div>
@@ -196,7 +221,7 @@ const HistoryView = () => {
 
     return (
         <div className="h-full flex flex-col">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">History</h2>
+            {/* Title removed per request */}
             <div className="bg-white border border-slate-200 rounded-2xl shadow-sm flex-1 overflow-hidden flex flex-col">
                 {/* Table Header */}
                 <div className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-slate-100 bg-slate-50 text-xs font-semibold text-slate-500 uppercase tracking-wider">
@@ -228,17 +253,15 @@ const HistoryView = () => {
 const AccountSettingsView = ({ onNavigateToPricing }: { onNavigateToPricing: () => void }) => {
   return (
     <div className="max-w-4xl mx-auto pb-12">
-       {/* UPDATED: Changed from Account Settings to Your Plan */}
-       <h2 className="text-2xl font-bold text-slate-900 mb-8">Your Plan</h2>
+       {/* UPDATED: Changed from Subscription Plan to Your Plan */}
+       <h2 className="text-2xl font-bold text-slate-900 mb-6">Your Plan</h2>
 
        {/* 1. Subscription Plan Card */}
        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mb-12">
-          {/* UPDATED: Removed the inner Subscription Plan title */}
           <div className="flex flex-col md:flex-row gap-12">
              <div className="flex-1">
                 <div className="mb-8">
                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wide block mb-2">Plan Tier</label>
-                   {/* UPDATED: Reduced font size from text-lg to text-sm */}
                    <div className="text-sm font-medium text-slate-900">Free Plan (300 words/month)</div>
                    <div className="h-1.5 w-full bg-slate-100 rounded-full mt-3 overflow-hidden">
                       <div className="h-full bg-brand-500 w-[0%] rounded-full"></div>
@@ -259,7 +282,7 @@ const AccountSettingsView = ({ onNavigateToPricing }: { onNavigateToPricing: () 
                         onClick={onNavigateToPricing}
                         className="bg-brand-600 hover:bg-brand-700 text-white px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-brand-500/20 transition-all"
                     >
-                        Upgrade plan
+                        Upgrade Plan
                     </button>
                 </div>
              </div>
@@ -302,19 +325,17 @@ const AccountSettingsView = ({ onNavigateToPricing }: { onNavigateToPricing: () 
           </div>
        </div>
 
-       {/* 3. Billing Info */}
+       {/* 3. Billing Info - UPDATED with styled faint buttons */}
        <div className="mb-16 border-t border-slate-200 pt-12">
           <h3 className="text-2xl font-bold text-slate-900 mb-8">Billing Info</h3>
-          <div className="flex flex-col md:flex-row gap-8 text-sm font-semibold text-slate-700">
-             <button className="text-left hover:text-brand-600 transition-colors flex items-center gap-2">
+          <div className="flex flex-wrap gap-4">
+             <button className="px-5 py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 transition-colors">
                  Change Payment Method
              </button>
-             <span className="hidden md:block text-slate-300">|</span>
-             <button className="text-left hover:text-brand-600 transition-colors">
+             <button className="px-5 py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 transition-colors">
                  Update Billing Address
              </button>
-             <span className="hidden md:block text-slate-300">|</span>
-             <button className="text-left hover:text-brand-600 transition-colors">
+             <button className="px-5 py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 transition-colors">
                  See Payment History
              </button>
           </div>
@@ -539,47 +560,49 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
               onClick={() => setActiveTab('humanize')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeTab === 'humanize' ? 'bg-brand-50 text-brand-600' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <FileText size={18} /> AI Humanizer
+              <FileText size={18} className="shrink-0" />
+              AI Humanizer
             </button>
             <button 
               onClick={() => setActiveTab('detect')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeTab === 'detect' ? 'bg-brand-50 text-brand-600' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <Search size={18} /> AI Detector
+              <Search size={18} className="shrink-0" />
+              AI Detector
             </button>
-             {/* NEW Paper Evaluation Item - Updated Styling to ensure single row */}
+             {/* Updated Paper Review Item - Standardized padding and gap */}
              <button 
               onClick={() => setActiveTab('evaluate')}
-              className={`w-full flex items-center gap-2 px-3 py-3 rounded-xl text-sm font-medium transition-colors group whitespace-nowrap ${activeTab === 'evaluate' ? 'bg-brand-50 text-brand-600' : 'text-slate-600 hover:bg-slate-50'}`}
+              className={`w-full flex items-center gap-3 pl-4 pr-2 py-3 rounded-xl text-sm font-medium transition-colors group whitespace-nowrap ${activeTab === 'evaluate' ? 'bg-brand-50 text-brand-600' : 'text-slate-600 hover:bg-slate-50'}`}
             >
               <GraduationCap size={18} className="shrink-0" /> 
-              <span className="truncate">Paper Evaluation</span>
-              <span className="ml-auto text-[10px] leading-none font-bold text-white bg-brand-500 px-1.5 py-1 rounded shadow-sm shrink-0">FREE</span>
+              <span>Paper Review</span>
+              <span className="ml-auto text-[10px] leading-none font-bold text-white bg-brand-500 px-1.5 py-0.5 rounded shadow-sm shrink-0">FREE</span>
             </button>
 
             <button 
               onClick={() => setActiveTab('history')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeTab === 'history' ? 'bg-brand-50 text-brand-600' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <History size={18} /> History
+              <History size={18} className="shrink-0" /> History
             </button>
             <button 
               onClick={() => setActiveTab('pricing')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeTab === 'pricing' ? 'bg-brand-50 text-brand-600' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <CreditCard size={18} /> Subscription Plan
+              <CreditCard size={18} className="shrink-0" /> Subscription Plan
             </button>
             <button 
               onClick={() => setActiveTab('settings')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeTab === 'settings' ? 'bg-brand-50 text-brand-600' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <Settings size={18} /> Account Setting
+              <Settings size={18} className="shrink-0" /> Account Setting
             </button>
             <button 
               onClick={handleInviteClick}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${showInviteModal ? 'text-brand-600 bg-brand-50' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <Gift size={18} /> Invite Friends
+              <Gift size={18} className="shrink-0" /> Invite Friends
             </button>
           </nav>
         </div>
@@ -602,32 +625,31 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
       {/* Main Content */}
       <main className="flex-1 ml-64 bg-white flex flex-col h-full overflow-hidden">
         
-        {/* Top Header */}
-        <header className="h-16 px-8 flex items-center justify-between border-b border-slate-50 shrink-0">
-          <h1 className="text-xl font-bold text-slate-800">
-            {activeTab === 'humanize' && 'Decrease AI Rate'}
-            {activeTab === 'detect' && 'AI Detector'}
-            {activeTab === 'evaluate' && 'Paper Evaluation'}
-            {activeTab === 'history' && 'History'}
-            {activeTab === 'pricing' && 'Subscription Plan'}
-            {activeTab === 'settings' && 'Account Settings'}
-          </h1>
-          <button 
-            onClick={!isLoggedIn ? onShowAuth : () => setActiveTab('settings')}
-            className="flex items-center gap-3 hover:bg-slate-50 p-1.5 pr-4 rounded-full transition-colors"
-          >
-            <div className="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center overflow-hidden">
-                {isLoggedIn ? (
-                    <img src="https://api.dicebear.com/7.x/notionists/svg?seed=User" alt="User" className="w-full h-full object-cover" />
-                ) : (
-                    <User size={18} />
-                )}
-            </div>
-            <span className="text-sm font-medium text-slate-700">
-                {isLoggedIn ? 'My Account' : 'Log In'}
-            </span>
-          </button>
-        </header>
+        {/* Top Header - Hidden for specific tabs (detect, evaluate, history) to remove title and whitespace */}
+        {!['detect', 'evaluate', 'history'].includes(activeTab) && (
+          <header className="h-16 px-8 flex items-center justify-between border-b border-slate-50 shrink-0">
+            <h1 className="text-xl font-bold text-slate-800">
+              {activeTab === 'humanize' && 'Decrease AI Rate'}
+              {activeTab === 'pricing' && 'Subscription Plan'}
+              {activeTab === 'settings' && 'Account Settings'}
+            </h1>
+            <button 
+              onClick={!isLoggedIn ? onShowAuth : () => setActiveTab('settings')}
+              className="flex items-center gap-3 hover:bg-slate-50 p-1.5 pr-4 rounded-full transition-colors"
+            >
+              <div className="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center overflow-hidden">
+                  {isLoggedIn ? (
+                      <img src="https://api.dicebear.com/7.x/notionists/svg?seed=User" alt="User" className="w-full h-full object-cover" />
+                  ) : (
+                      <User size={18} />
+                  )}
+              </div>
+              <span className="text-sm font-medium text-slate-700">
+                  {isLoggedIn ? 'My Account' : 'Log In'}
+              </span>
+            </button>
+          </header>
+        )}
 
         {/* Content Area */}
         <div className="flex-1 p-6 bg-slate-50 overflow-auto">
@@ -687,7 +709,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
           )}
 
           {activeTab === 'detect' && <DetectorView />}
-          {activeTab === 'evaluate' && <PaperEvaluationView />}
+          {activeTab === 'evaluate' && <PaperReviewView />}
           {activeTab === 'history' && <HistoryView />}
           {activeTab === 'settings' && <AccountSettingsView onNavigateToPricing={() => setActiveTab('pricing')} />}
 
