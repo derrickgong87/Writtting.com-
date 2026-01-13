@@ -24,7 +24,9 @@ import {
   X,
   Link,
   Users,
-  GraduationCap
+  GraduationCap,
+  HelpCircle,
+  Settings
 } from 'lucide-react';
 import { humanizeText, evaluatePaper } from '../services/ai';
 
@@ -222,6 +224,112 @@ const HistoryView = () => {
         </div>
     );
 };
+
+const AccountSettingsView = ({ onNavigateToPricing }: { onNavigateToPricing: () => void }) => {
+  return (
+    <div className="max-w-4xl mx-auto pb-12">
+       {/* UPDATED: Changed from Account Settings to Your Plan */}
+       <h2 className="text-2xl font-bold text-slate-900 mb-8">Your Plan</h2>
+
+       {/* 1. Subscription Plan Card */}
+       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mb-12">
+          {/* UPDATED: Removed the inner Subscription Plan title */}
+          <div className="flex flex-col md:flex-row gap-12">
+             <div className="flex-1">
+                <div className="mb-8">
+                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wide block mb-2">Plan Tier</label>
+                   {/* UPDATED: Reduced font size from text-lg to text-sm */}
+                   <div className="text-sm font-medium text-slate-900">Free Plan (300 words/month)</div>
+                   <div className="h-1.5 w-full bg-slate-100 rounded-full mt-3 overflow-hidden">
+                      <div className="h-full bg-brand-500 w-[0%] rounded-full"></div>
+                   </div>
+                   <div className="text-xs text-slate-400 mt-2">0 / 300 words used</div>
+                </div>
+
+                <div className="mb-8">
+                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wide block mb-2">Plan Status</label>
+                   <div className="text-emerald-600 font-bold flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                      Active
+                   </div>
+                </div>
+                
+                <div className="border-t border-slate-100 pt-6">
+                    <button 
+                        onClick={onNavigateToPricing}
+                        className="bg-brand-600 hover:bg-brand-700 text-white px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-brand-500/20 transition-all"
+                    >
+                        Upgrade plan
+                    </button>
+                </div>
+             </div>
+
+             {/* Divider */}
+             <div className="hidden md:block w-px bg-slate-100"></div>
+
+             <div className="flex-1 space-y-8">
+                <div className="border-b border-slate-100 pb-6">
+                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wide block mb-2">Next usage reset</label>
+                   <div className="text-slate-700 font-medium">January 18, 2026</div>
+                </div>
+                <div className="border-b border-slate-100 pb-6">
+                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wide block mb-2">Next payment</label>
+                   <div className="text-slate-700 font-medium">--</div>
+                </div>
+                <div>
+                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wide block mb-2">Renewal period</label>
+                   <div className="text-slate-700 font-medium">Monthly</div>
+                </div>
+             </div>
+          </div>
+       </div>
+
+       {/* 2. Manage Plan */}
+       <div className="mb-12">
+          <h3 className="text-2xl font-bold text-slate-900 mb-6">Manage Plan</h3>
+          <div className="flex flex-wrap items-center gap-4">
+             <button className="px-6 py-3 bg-slate-800 text-white rounded-xl font-bold text-sm hover:bg-slate-700 transition-colors shadow-lg shadow-slate-900/10">
+                Pause Subscription
+             </button>
+             <span className="text-slate-300 font-light text-xl">|</span>
+             <button className="px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl font-bold text-sm hover:bg-slate-50 transition-colors shadow-sm">
+                Change Plan
+             </button>
+             <span className="text-slate-300 font-light text-xl">|</span>
+             <button className="px-6 py-3 text-slate-500 hover:text-red-600 font-medium text-sm transition-colors">
+                Cancel Plan
+             </button>
+          </div>
+       </div>
+
+       {/* 3. Billing Info */}
+       <div className="mb-16 border-t border-slate-200 pt-12">
+          <h3 className="text-2xl font-bold text-slate-900 mb-8">Billing Info</h3>
+          <div className="flex flex-col md:flex-row gap-8 text-sm font-semibold text-slate-700">
+             <button className="text-left hover:text-brand-600 transition-colors flex items-center gap-2">
+                 Change Payment Method
+             </button>
+             <span className="hidden md:block text-slate-300">|</span>
+             <button className="text-left hover:text-brand-600 transition-colors">
+                 Update Billing Address
+             </button>
+             <span className="hidden md:block text-slate-300">|</span>
+             <button className="text-left hover:text-brand-600 transition-colors">
+                 See Payment History
+             </button>
+          </div>
+       </div>
+
+       {/* 4. Account Management */}
+       <div className="mb-8 border-t border-slate-200 pt-12">
+          <h3 className="text-2xl font-bold text-slate-900 mb-6">Account management</h3>
+          <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-red-500/20 transition-all">
+             Delete my account
+          </button>
+       </div>
+    </div>
+  )
+}
 
 // --- Invite Modal ---
 const InviteModal = ({ onClose }: { onClose: () => void }) => {
@@ -459,7 +567,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
               onClick={() => setActiveTab('pricing')}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeTab === 'pricing' ? 'bg-brand-50 text-brand-600' : 'text-slate-600 hover:bg-slate-50'}`}
             >
-              <CreditCard size={18} /> Pricing
+              <CreditCard size={18} /> Subscription Plan
+            </button>
+            <button 
+              onClick={() => setActiveTab('settings')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeTab === 'settings' ? 'bg-brand-50 text-brand-600' : 'text-slate-600 hover:bg-slate-50'}`}
+            >
+              <Settings size={18} /> Account Setting
             </button>
             <button 
               onClick={handleInviteClick}
@@ -495,14 +609,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
             {activeTab === 'detect' && 'AI Detector'}
             {activeTab === 'evaluate' && 'Paper Evaluation'}
             {activeTab === 'history' && 'History'}
-            {activeTab === 'pricing' && 'Upgrade Plan'}
+            {activeTab === 'pricing' && 'Subscription Plan'}
+            {activeTab === 'settings' && 'Account Settings'}
           </h1>
           <button 
-            onClick={!isLoggedIn ? onShowAuth : undefined}
+            onClick={!isLoggedIn ? onShowAuth : () => setActiveTab('settings')}
             className="flex items-center gap-3 hover:bg-slate-50 p-1.5 pr-4 rounded-full transition-colors"
           >
-            <div className="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center">
-                <User size={18} />
+            <div className="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center overflow-hidden">
+                {isLoggedIn ? (
+                    <img src="https://api.dicebear.com/7.x/notionists/svg?seed=User" alt="User" className="w-full h-full object-cover" />
+                ) : (
+                    <User size={18} />
+                )}
             </div>
             <span className="text-sm font-medium text-slate-700">
                 {isLoggedIn ? 'My Account' : 'Log In'}
@@ -570,6 +689,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
           {activeTab === 'detect' && <DetectorView />}
           {activeTab === 'evaluate' && <PaperEvaluationView />}
           {activeTab === 'history' && <HistoryView />}
+          {activeTab === 'settings' && <AccountSettingsView onNavigateToPricing={() => setActiveTab('pricing')} />}
 
           {activeTab === 'pricing' && (
             <div className="max-w-6xl mx-auto space-y-12 pb-12">
@@ -662,15 +782,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
 
         {/* Footer Controls (Humanizer Only) */}
         {activeTab === 'humanize' && (
-           <div className="h-20 bg-white border-t border-slate-100 px-8 flex items-center justify-between shrink-0">
+           <div className="h-28 bg-white border-t border-slate-100 px-8 flex items-center justify-between shrink-0">
              <div className="flex items-center gap-4">
                <span className="text-slate-500 text-sm">Mode:</span>
                
                {/* Mode Selector Dropdown */}
-               <div className="relative">
+               <div className="relative group">
                  <button 
                     onClick={() => setIsModeDropdownOpen(!isModeDropdownOpen)}
-                    className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-700 hover:border-brand-300 min-w-[180px] justify-between group"
+                    className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-700 hover:border-brand-300 min-w-[180px] justify-between transition-colors"
                  >
                    <div className="flex items-center gap-2">
                      <currentMode.icon size={16} className={currentMode.color} /> 
@@ -683,7 +803,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
                  {isModeDropdownOpen && (
                    <>
                      <div className="fixed inset-0 z-10" onClick={() => setIsModeDropdownOpen(false)}></div>
-                     <div className="absolute bottom-full left-0 mb-2 w-56 bg-white border border-slate-100 shadow-xl rounded-xl overflow-hidden z-20">
+                     <div className="absolute bottom-full left-0 mb-2 w-56 bg-white border border-slate-100 shadow-xl rounded-xl overflow-hidden z-20 animate-in fade-in slide-in-from-bottom-2 duration-150">
                        {Object.values(HUMANIZER_MODES).map((mode) => (
                          <button
                            key={mode.id}
@@ -691,7 +811,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
                              setHumanizerMode(mode.id as any);
                              setIsModeDropdownOpen(false);
                            }}
-                           className="w-full px-4 py-3 text-left hover:bg-slate-50 flex items-center gap-3 transition-colors"
+                           className="w-full px-4 py-3 text-left hover:bg-slate-50 flex items-center gap-3 transition-colors group/item relative"
                          >
                            <mode.icon size={16} className={mode.color} />
                            <span className="text-sm font-medium text-slate-700">{mode.name}</span>
@@ -702,8 +822,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
                    </>
                  )}
 
-                 {/* Tooltip Description (Shows for current selection when dropdown is closed, or hover over main button) */}
-                 <div className="absolute bottom-full left-0 mb-3 w-72 bg-white border border-slate-200 shadow-2xl rounded-2xl p-5 hidden group-hover:block z-30 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-200">
+                 {/* Tooltip Description (Hover over the main button) */}
+                 <div className={`absolute bottom-full left-0 mb-3 w-72 bg-white border border-slate-200 shadow-2xl rounded-2xl p-5 z-30 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-200 ${isModeDropdownOpen ? 'hidden' : 'hidden group-hover:block'}`}>
                     <h4 className="font-bold text-slate-900 text-sm flex items-center gap-2 mb-2">
                        <currentMode.icon size={16} className={currentMode.color} /> {currentMode.title}
                     </h4>
@@ -739,16 +859,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
       </main>
       
       {/* Support Widget */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <div className="bg-white p-2 rounded-xl shadow-xl border border-slate-100 flex items-center gap-3">
-            <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center overflow-hidden">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Support" />
+      <div className="fixed bottom-36 right-6 z-50">
+        <a 
+          href="mailto:humanizer.help@gmail.com"
+          className="bg-white p-2.5 rounded-2xl shadow-xl border border-slate-200 flex items-center gap-3 hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
+        >
+            <div className="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center overflow-hidden border border-slate-100">
+                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix" alt="Support" className="w-full h-full object-cover" />
             </div>
             <div className="text-xs mr-2">
-                <p className="font-bold text-slate-800">Questions?</p>
-                <p className="text-slate-500">Contact Support</p>
+                <p className="font-bold text-slate-800 mb-0.5">Questions?</p>
+                <p className="text-brand-600 font-medium group-hover:underline">Contact Support</p>
             </div>
-        </div>
+        </a>
       </div>
     </div>
   );
