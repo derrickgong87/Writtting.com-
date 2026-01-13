@@ -25,3 +25,33 @@ export const humanizeText = async (text: string): Promise<string> => {
     return "Error: Unable to process text at this time. Please try again.";
   }
 };
+
+export const evaluatePaper = async (text: string): Promise<string> => {
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-3-flash-preview',
+      contents: `Act as a strict academic professor. Evaluate the following text for an academic paper.
+      
+      Provide the output in the following format (Markdown):
+      
+      # Score: [0-100]/100
+      
+      ## 1. Thesis & Argument
+      [Feedback here]
+      
+      ## 2. Clarity & Flow
+      [Feedback here]
+      
+      ## 3. Academic Tone & Grammar
+      [Feedback here]
+      
+      Text to evaluate:
+      "${text}"`,
+    });
+
+    return response.text || "Could not evaluate text.";
+  } catch (error) {
+    console.error("Error evaluating text:", error);
+    return "Error: Unable to process evaluation at this time.";
+  }
+};

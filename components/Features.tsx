@@ -1,11 +1,11 @@
 import React from 'react';
-import { ShieldCheck, Zap, UserCheck, Lock, Globe, ThumbsUp } from 'lucide-react';
+import { ShieldCheck, Zap, UserCheck, Lock, Scale, ThumbsUp } from 'lucide-react';
 
 const features = [
   {
     icon: <ShieldCheck size={24} className="text-brand-600" />,
     title: "Undetectable by Turnitin",
-    description: "Our advanced model is specifically trained to bypass academic plagiarism checkers and AI detectors."
+    description: "Our advanced model is specifically trained to humanize content against academic plagiarism checkers and AI detectors."
   },
   {
     icon: <Zap size={24} className="text-brand-600" />,
@@ -23,25 +23,25 @@ const features = [
     description: "Your data is encrypted and processed securely. We never store your inputs."
   },
   {
-    icon: <Globe size={24} className="text-brand-600" />,
-    title: "Multiple Languages",
-    description: "Support for English, Spanish, French, and German with native-level fluency."
+    icon: <Scale size={24} className="text-brand-600" />,
+    title: "Meaning Retention",
+    description: "Our core algorithms are designed to strictly preserve the original intent and facts while rewriting structure to bypass detection."
   },
   {
     icon: <ThumbsUp size={24} className="text-brand-600" />,
     title: "Grammar Perfect",
-    description: "Maintains perfect grammar and syntax while altering the structure to bypass detection."
+    description: "Maintains perfect grammar and syntax while altering the structure to avoid detection."
   }
 ];
 
 export const Features: React.FC = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white" id="features">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Choose Writtting?</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Choose Humanizer.help?</h2>
           <p className="text-slate-500 max-w-2xl mx-auto">
-            The most advanced rewriting technology on the market, designed for students, writers, and professionals.
+            The most advanced humanizing technology on the market, designed for students, writers, and professionals.
           </p>
         </div>
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, X, Zap, Info, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Check, X, Zap, ShieldCheck, ArrowRight } from 'lucide-react';
 
 interface PricingProps {
   onStart: () => void;
@@ -8,9 +8,11 @@ interface PricingProps {
 export const Pricing: React.FC<PricingProps> = ({ onStart }) => {
   const [isAnnual, setIsAnnual] = useState(true);
 
-  // Math: Monthly Price * 12 * 0.6 (40% off) / 12 = Monthly Price * 0.6
-  // Rounding for cleaner display
-  
+  // Pricing Logic (40% off for Annual - "6折")
+  // Basic: $9.99/mo -> ~$5.99/mo (Yearly total ~71.88)
+  // Advanced: $19.99/mo -> ~$11.99/mo (Yearly total ~143.88)
+  // Unlimited: $49.99/mo -> ~$29.99/mo (Yearly total ~359.88)
+
   const plans = [
     {
       name: "Free",
@@ -18,10 +20,10 @@ export const Pricing: React.FC<PricingProps> = ({ onStart }) => {
       price: "Free",
       period: "forever",
       features: [
-        { text: "300 words/request", included: true },
-        { text: "1,000 words/day", included: true },
+        { text: "300 words/month", included: true },
         { text: "Basic Mode", included: true },
         { text: "No Advanced Features", included: false },
+        { text: "No Bulk Upload", included: false },
       ],
       buttonVariant: "outline",
       popular: false
@@ -33,41 +35,40 @@ export const Pricing: React.FC<PricingProps> = ({ onStart }) => {
       period: "per month",
       billingNote: isAnnual ? "Billed $71.88 yearly" : "Billed monthly",
       features: [
-        { text: "Unlimited words", included: true },
+        { text: "5,000 words / month", included: true, bold: true },
         { text: "1,000 words/request", included: true },
         { text: "Standard Mode", included: true },
-        { text: "Basic Bypass", included: true },
+        { text: "Basic Humanizer", included: true },
       ],
       buttonVariant: "outline",
       popular: false
     },
     {
-      name: "Pro",
+      name: "Advanced",
       description: "Best for students.",
       price: isAnnual ? "$11.99" : "$19.99",
       period: "per month",
       billingNote: isAnnual ? "Billed $143.88 yearly" : "Billed monthly",
       features: [
-        { text: "Unlimited words", included: true, bold: true },
+        { text: "20,000 words / month", included: true, bold: true },
         { text: "2,500 words/request", included: true },
         { text: "All Humanizer Modes", included: true },
-        { text: "Bypass Turnitin", included: true },
+        { text: "Humanize for Turnitin", included: true },
         { text: "Plagiarism Scan", included: true },
       ],
       buttonVariant: "solid",
       popular: true
     },
     {
-      name: "Ultra",
+      name: "Unlimited",
       description: "Power users.",
-      price: isAnnual ? "$23.99" : "$39.99",
+      price: isAnnual ? "$29.99" : "$49.99",
       period: "per month",
-      billingNote: isAnnual ? "Billed $287.88 yearly" : "Billed monthly",
+      billingNote: isAnnual ? "Billed $359.88 yearly" : "Billed monthly",
       features: [
         { text: "Unlimited words", included: true, bold: true },
         { text: "10,000 words/request", included: true },
         { text: "Bulk File Uploads", included: true },
-        { text: "API Access", included: true },
         { text: "Priority Support", included: true },
       ],
       buttonVariant: "outline",
@@ -184,7 +185,7 @@ export const Pricing: React.FC<PricingProps> = ({ onStart }) => {
                 Ready to make your content undetectable?
              </h2>
              <p className="text-slate-400 mb-8 max-w-xl mx-auto relative z-10">
-                Join thousands of students and professionals who trust Writtting to refine their work. No credit card required for the free plan.
+                Join thousands of students and professionals who trust Humanizer.help to refine their work. No credit card required for the free plan.
              </p>
              <button 
                 onClick={onStart}

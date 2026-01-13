@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
               <div className="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
                 <PenTool size={18} />
               </div>
-              <span className="text-xl font-bold">Writtting</span>
+              <span className="text-xl font-bold">Humanizer.help</span>
             </div>
             <p className="text-slate-400 text-sm mb-6">
               The #1 AI humanizer tool used by over 100,000 students and professionals worldwide.
@@ -29,7 +29,6 @@ export const Footer: React.FC = () => {
               <li><a href="#" className="hover:text-brand-400 transition-colors">AI Humanizer</a></li>
               <li><a href="#" className="hover:text-brand-400 transition-colors">AI Detector</a></li>
               <li><a href="#" className="hover:text-brand-400 transition-colors">Pricing</a></li>
-              <li><a href="#" className="hover:text-brand-400 transition-colors">API</a></li>
             </ul>
           </div>
 
@@ -54,7 +53,7 @@ export const Footer: React.FC = () => {
         </div>
         
         <div className="pt-8 border-t border-slate-800 text-center text-sm text-slate-500">
-          &copy; {new Date().getFullYear()} Writtting.com Clone. All rights reserved.
+          &copy; {new Date().getFullYear()} Humanizer.help. All rights reserved.
         </div>
       </div>
     </footer>

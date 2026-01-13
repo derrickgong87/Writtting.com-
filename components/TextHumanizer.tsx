@@ -7,6 +7,7 @@ export const TextHumanizer: React.FC = () => {
   const [outputText, setOutputText] = useState('');
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [mode, setMode] = useState<'standard' | 'academic'>('standard');
 
   const handleHumanize = async () => {
     if (!inputText.trim()) return;
@@ -35,12 +36,28 @@ export const TextHumanizer: React.FC = () => {
             {/* Toolbar */}
             <div className="bg-slate-50 border-b border-slate-200 px-6 py-3 flex items-center justify-between">
                 <div className="flex gap-2">
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-700 shadow-sm cursor-pointer hover:border-brand-300">
-                        <span className="w-2 h-2 rounded-full bg-brand-500"></span> Standard
-                    </div>
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-transparent text-sm font-medium text-slate-400 hover:text-slate-600 cursor-pointer">
+                    <button 
+                      onClick={() => setMode('standard')}
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all shadow-sm border ${
+                        mode === 'standard' 
+                          ? 'bg-white border-brand-300 text-brand-700 ring-1 ring-brand-100' 
+                          : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
+                      }`}
+                    >
+                        <span className={`w-2 h-2 rounded-full ${mode === 'standard' ? 'bg-brand-500' : 'bg-slate-300'}`}></span> 
+                        Standard
+                    </button>
+                    <button 
+                      onClick={() => setMode('academic')}
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all shadow-sm border ${
+                        mode === 'academic' 
+                          ? 'bg-white border-purple-300 text-purple-700 ring-1 ring-purple-100' 
+                          : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
+                      }`}
+                    >
+                        <span className={`w-2 h-2 rounded-full ${mode === 'academic' ? 'bg-purple-500' : 'bg-slate-300'}`}></span> 
                         Academic (Pro)
-                    </div>
+                    </button>
                 </div>
                 <div className="text-xs text-slate-400 font-mono">
                     {inputText.length} chars

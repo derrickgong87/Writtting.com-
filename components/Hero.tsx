@@ -19,7 +19,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         </h1>
         
         <p className="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Bypass AI detection from Turnitin, GPTZero, and Originality.ai. Transform your AI-generated content into natural, human-like writing in seconds.
+          Humanize AI text for Turnitin, GPTZero, and Originality.ai. Transform your AI-generated content into natural, human-like writing in seconds.
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">

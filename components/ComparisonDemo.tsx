@@ -36,7 +36,9 @@ export const ComparisonDemo: React.FC = () => {
                         {/* Turnitin-style Alert */}
                         <div className="flex flex-col md:flex-row gap-4 mb-8">
                             <div className="flex-1">
-                                <h3 className="text-4xl font-bold text-slate-800 mb-2">100% detected as AI</h3>
+                                <h3 className="text-4xl font-bold text-slate-900 mb-2">
+                                  <span className="text-red-600">100%</span> detected as AI
+                                </h3>
                                 <p className="text-xs text-slate-500">The percentage indicates the combined amount of likely AI-generated text.</p>
                             </div>
                             <div className="bg-blue-50 border border-blue-100 p-3 rounded text-[10px] text-blue-700 md:w-48 leading-tight">
@@ -67,9 +69,10 @@ export const ComparisonDemo: React.FC = () => {
                 <div className="text-center mt-4 mb-2 font-bold text-slate-400 uppercase tracking-widest text-sm">Before Humanizing</div>
             </div>
 
-            {/* After Card (Blue Theme) */}
-             <div className="flex-1 w-full bg-brand-500 rounded-[2rem] p-3 shadow-2xl shadow-brand-500/30">
-                <div className="bg-white rounded-[1.5rem] overflow-hidden shadow-sm h-full relative">
+            {/* After Card (Glass/Blue Theme) */}
+             {/* Changed outer container background from bg-brand-500 to a gradient border with p-[2px] */}
+             <div className="flex-1 w-full p-[2px] rounded-[2rem] shadow-2xl shadow-brand-500/10 bg-gradient-to-br from-brand-200 via-white to-brand-200">
+                <div className="bg-white rounded-[1.8rem] overflow-hidden shadow-sm h-full relative">
                     {/* Glow effect */}
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-green-400"></div>
 
@@ -85,7 +88,9 @@ export const ComparisonDemo: React.FC = () => {
                         {/* Clean Result Alert */}
                         <div className="flex flex-col md:flex-row gap-4 mb-8">
                             <div className="flex-1">
-                                <h3 className="text-4xl font-bold text-brand-600 mb-2">0% detected as AI</h3>
+                                <h3 className="text-4xl font-bold text-slate-900 mb-2">
+                                  <span className="text-emerald-500">0%</span> detected as AI
+                                </h3>
                                 <p className="text-xs text-slate-500">The percentage indicates the combined amount of likely AI-generated text.</p>
                             </div>
                              <div className="bg-green-50 border border-green-100 p-3 rounded text-[10px] text-green-700 md:w-48 leading-tight opacity-50 blur-[1px]">
@@ -113,7 +118,7 @@ export const ComparisonDemo: React.FC = () => {
                     </div>
                 </div>
                  {/* Label */}
-                <div className="text-center mt-4 mb-2 font-bold text-white/90 uppercase tracking-widest text-sm">After Humanizing</div>
+                <div className="text-center mt-4 mb-2 font-bold text-brand-600 uppercase tracking-widest text-sm">After Humanizing</div>
             </div>
 
         </div>
