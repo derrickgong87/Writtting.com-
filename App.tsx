@@ -118,7 +118,7 @@ const App: React.FC = () => {
 
         {currentView === 'landing' && (
           <>
-            <Hero onStart={handleStart} />
+            <Hero onStart={handleStart} onPricing={() => handleNav('pricing')} />
             <ComparisonDemo />
             <TextHumanizer />
             <Features />

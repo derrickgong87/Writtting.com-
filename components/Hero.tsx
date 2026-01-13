@@ -3,9 +3,10 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface HeroProps {
   onStart: () => void;
+  onPricing: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onStart }) => {
+export const Hero: React.FC<HeroProps> = ({ onStart, onPricing }) => {
   return (
     <section className="relative pt-32 pb-20 overflow-hidden">
       {/* Background Decor */}
@@ -30,7 +31,10 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             Start Humanizing Free
             <ArrowRight size={18} />
           </button>
-          <button className="px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-semibold hover:bg-slate-50 transition-all">
+          <button 
+            onClick={onPricing}
+            className="px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-semibold hover:bg-slate-50 transition-all"
+          >
             View Pricing
           </button>
         </div>
