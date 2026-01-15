@@ -374,7 +374,7 @@ const AccountSettingsView = ({ onNavigateToPricing }: { onNavigateToPricing: () 
                  <p className="text-slate-600 mb-8 text-sm leading-relaxed">
                     To cancel your subscription, please email us at <a href="mailto:humanizer.help@gmail.com" className="text-brand-600 font-semibold hover:underline">humanizer.help@gmail.com</a>. 
                     <br/><br/>
-                    Kindly include the reason for your cancellation, and we will process your request promptly.
+                    Kindly include the reason for your cancellation, and we will process your request promptly. We can cancel the subscription within 24 hours.
                  </p>
                  
                  <button 
