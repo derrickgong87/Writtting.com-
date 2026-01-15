@@ -28,7 +28,8 @@ import {
   HelpCircle,
   Settings,
   Cpu,
-  Loader2
+  Loader2,
+  Mail
 } from 'lucide-react';
 import { humanizeText, evaluatePaper } from '../services/ai';
 
@@ -252,6 +253,8 @@ const HistoryView = () => {
 };
 
 const AccountSettingsView = ({ onNavigateToPricing }: { onNavigateToPricing: () => void }) => {
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
   return (
     <div className="max-w-4xl mx-auto pb-12">
        {/* UPDATED: Changed from Subscription Plan to Your Plan */}
@@ -317,7 +320,10 @@ const AccountSettingsView = ({ onNavigateToPricing }: { onNavigateToPricing: () 
                 Change Plan
              </button>
              <span className="text-slate-300 font-light text-xl">|</span>
-             <button className="px-6 py-3 text-slate-500 hover:text-red-600 font-medium text-sm transition-colors">
+             <button 
+                onClick={() => setShowCancelModal(true)}
+                className="px-6 py-3 text-slate-500 hover:text-red-600 font-medium text-sm transition-colors"
+             >
                 Cancel Plan
              </button>
           </div>
@@ -346,6 +352,40 @@ const AccountSettingsView = ({ onNavigateToPricing }: { onNavigateToPricing: () 
              Delete my account
           </button>
        </div>
+
+       {/* Cancel Modal */}
+       {showCancelModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setShowCancelModal(false)}></div>
+            <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-sm p-8 text-center animate-in fade-in zoom-in-95 duration-200">
+                 <button 
+                    onClick={() => setShowCancelModal(false)}
+                    className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 bg-slate-50 rounded-full p-1"
+                 >
+                    <X size={20} />
+                 </button>
+                 
+                 <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 text-red-500">
+                    <Mail size={32} />
+                 </div>
+                 
+                 <h3 className="text-xl font-bold text-slate-900 mb-3">Cancel Subscription</h3>
+                 
+                 <p className="text-slate-600 mb-8 text-sm leading-relaxed">
+                    To cancel your subscription, please email us at <a href="mailto:humanizer.help@gmail.com" className="text-brand-600 font-semibold hover:underline">humanizer.help@gmail.com</a>. 
+                    <br/><br/>
+                    Kindly include the reason for your cancellation, and we will process your request promptly.
+                 </p>
+                 
+                 <button 
+                    onClick={() => setShowCancelModal(false)}
+                    className="w-full py-3 bg-slate-900 text-white rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/10"
+                 >
+                    Okay, I understand
+                 </button>
+            </div>
+        </div>
+       )}
     </div>
   )
 }
