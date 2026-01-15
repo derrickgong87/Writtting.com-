@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   PenTool, 
   Search, 
@@ -27,7 +27,8 @@ import {
   GraduationCap,
   HelpCircle,
   Settings,
-  Cpu
+  Cpu,
+  Loader2
 } from 'lucide-react';
 import { humanizeText, evaluatePaper } from '../services/ai';
 
@@ -311,10 +312,7 @@ const AccountSettingsView = ({ onNavigateToPricing }: { onNavigateToPricing: () 
        <div className="mb-12">
           <h3 className="text-2xl font-bold text-slate-900 mb-6">Manage Plan</h3>
           <div className="flex flex-wrap items-center gap-4">
-             <button className="px-6 py-3 bg-slate-800 text-white rounded-xl font-bold text-sm hover:bg-slate-700 transition-colors shadow-lg shadow-slate-900/10">
-                Pause Subscription
-             </button>
-             <span className="text-slate-300 font-light text-xl">|</span>
+             {/* Removed 'Pause Subscription' button as requested */}
              <button className="px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl font-bold text-sm hover:bg-slate-50 transition-colors shadow-sm">
                 Change Plan
              </button>
@@ -450,14 +448,25 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
   const [activeTab, setActiveTab] = useState('humanize');
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [copied, setCopied] = useState(false);
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [humanizerMode, setHumanizerMode] = useState<keyof typeof HUMANIZER_MODES>('balanced');
   const [isModeDropdownOpen, setIsModeDropdownOpen] = useState(false);
+  const [processingStep, setProcessingStep] = useState('Analyzing text structure...');
   
   // Dashboard Pricing State
   const [isAnnual, setIsAnnual] = useState(true);
+
+  // Update processing step based on progress
+  useEffect(() => {
+    if (progress < 25) setProcessingStep("Analyzing syntax & structure...");
+    else if (progress < 50) setProcessingStep("Identifying AI patterns...");
+    else if (progress < 75) setProcessingStep("Restructuring sentences...");
+    else if (progress < 90) setProcessingStep("Infusing natural human tone...");
+    else setProcessingStep("Polishing final output...");
+  }, [progress]);
 
   // Handle invite click
   const handleInviteClick = () => {
@@ -466,22 +475,68 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
 
   const handleHumanize = async () => {
     if (!inputText.trim()) return;
-    setLoading(true);
+    setIsProcessing(true);
+    setProgress(0);
+    setOutputText('');
+    setProcessingStep('Analyzing syntax & structure...');
 
-    // Simulate delayed process and trigger auth if not logged in
     if (!isLoggedIn) {
-        // Wait 1.5 seconds to simulate "processing almost done" then show auth
-        setTimeout(() => {
-            setLoading(false);
-            onShowAuth();
-        }, 1500);
-        return;
-    }
+        // Guest Flow: Animate to 96% then prompt auth
+        let currentP = 0;
+        const interval = setInterval(() => {
+            currentP += 1;
+            // Simple linear progress for smoothness
+            if (currentP >= 96) {
+                clearInterval(interval);
+                setProgress(96);
+                setTimeout(() => {
+                   setIsProcessing(false);
+                   onShowAuth();
+                   setProgress(0);
+                }, 500);
+            } else {
+                setProgress(currentP);
+            }
+        }, 25); // Approx 2.5 seconds to 96%
+    } else {
+        // Logged In Flow: Animate and Call API
+        const startTime = Date.now();
+        const minDuration = 2000; // Minimum animation time of 2 seconds
+        
+        const apiPromise = humanizeText(inputText);
 
-    // Normal processing if logged in
-    const result = await humanizeText(inputText);
-    setOutputText(result);
-    setLoading(false);
+        const interval = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            // Calculate theoretical progress up to 90% based on time
+            // This ensures smooth animation at least for the first part
+            const timeProgress = Math.min(90, Math.floor((elapsed / minDuration) * 90));
+            
+            setProgress(prev => {
+                // Never go backwards, but advance if time allows
+                if (prev < timeProgress) return timeProgress;
+                return prev;
+            });
+        }, 50);
+
+        try {
+            const result = await apiPromise;
+            
+            // Ensure we reached near 90% and waited minDuration before snapping to 100
+            clearInterval(interval);
+            setProgress(100);
+            
+            setTimeout(() => {
+                setOutputText(result);
+                setIsProcessing(false);
+                setProgress(0);
+            }, 500);
+        } catch (e) {
+            clearInterval(interval);
+            setIsProcessing(false);
+            setProgress(0);
+            console.error(e);
+        }
+    }
   };
 
   const copyToClipboard = () => {
@@ -684,7 +739,27 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
 
               {/* Right Panel */}
               <div className="flex-1 bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col p-6 relative">
-                 {outputText ? (
+                 {isProcessing ? (
+                     <div className="flex-1 flex flex-col items-center justify-center relative animate-in fade-in duration-300">
+                        <div className="w-full max-w-sm">
+                            <div className="flex justify-between text-sm font-bold text-slate-700 mb-3">
+                                <span className="flex items-center gap-2"><Sparkles size={16} className="text-brand-500"/> Humanizing...</span>
+                                <span>{progress}%</span>
+                            </div>
+                            <div className="h-4 w-full bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+                                <div 
+                                    className="h-full bg-gradient-to-r from-brand-500 to-indigo-500 rounded-full transition-all duration-100 ease-out relative"
+                                    style={{ width: `${progress}%` }}
+                                >
+                                    <div className="absolute top-0 left-0 bottom-0 right-0 bg-white/20 animate-pulse"></div>
+                                </div>
+                            </div>
+                            <p className="text-center text-slate-400 text-xs mt-4 font-medium animate-pulse">
+                                {processingStep}
+                            </p>
+                        </div>
+                     </div>
+                 ) : outputText ? (
                     <>
                       <textarea 
                         readOnly
@@ -866,15 +941,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
 
              <button 
                 onClick={handleHumanize}
-                disabled={loading || !inputText}
+                disabled={isProcessing || !inputText}
                 className={`px-8 py-3 rounded-lg font-bold text-white shadow-lg transition-all flex items-center gap-2 ${
-                  loading || !inputText 
+                  isProcessing || !inputText 
                     ? 'bg-brand-300 cursor-not-allowed' 
                     : 'bg-brand-500 hover:bg-brand-600 shadow-brand-500/30'
                 }`}
              >
-                {loading ? <RotateCw size={18} className="animate-spin" /> : <Sparkles size={18} />}
-                {loading ? 'Processing...' : 'Humanize Text'}
+                {isProcessing ? <Loader2 size={18} className="animate-spin" /> : <Sparkles size={18} />}
+                {isProcessing ? 'Processing...' : 'Humanize Text'}
              </button>
            </div>
         )}
