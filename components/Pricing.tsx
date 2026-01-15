@@ -68,7 +68,9 @@ export const Pricing: React.FC<PricingProps> = ({ onStart }) => {
       features: [
         { text: "Unlimited words", included: true, bold: true },
         { text: "10,000 words/request", included: true },
-        { text: "Bulk File Uploads", included: true },
+        { text: "All Humanizer Modes", included: true },
+        { text: "Humanize for Turnitin", included: true },
+        { text: "Highest Quality Output", included: true },
         { text: "Priority Support", included: true },
       ],
       buttonVariant: "outline",
@@ -111,7 +113,7 @@ export const Pricing: React.FC<PricingProps> = ({ onStart }) => {
         </div>
 
         {/* Pricing Cards - 4 Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {plans.map((plan, idx) => (
             <div 
               key={idx}
