@@ -36,11 +36,13 @@ const features = [
 
 export const Features: React.FC = () => {
   return (
-    <section className="py-20 bg-white" id="features">
+    <section className="py-24 bg-white" id="features">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Choose Humanizer.help?</h2>
-          <p className="text-slate-500 max-w-2xl mx-auto">
+          {/* Header matched to Pricing section (text-3xl md:text-5xl font-extrabold) */}
+          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Why Choose Humanizer.help?</h2>
+          {/* Description matched to Pricing section (text-lg text-slate-500) */}
+          <p className="text-lg text-slate-500 mb-10 max-w-2xl mx-auto">
             The most advanced humanizing technology on the market, designed for students, writers, and professionals.
           </p>
         </div>

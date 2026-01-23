@@ -9,10 +9,6 @@ export const Pricing: React.FC<PricingProps> = ({ onStart }) => {
   const [isAnnual, setIsAnnual] = useState(true);
 
   // Pricing Logic (40% off for Annual - "6折")
-  // Basic: $9.99/mo -> ~$5.99/mo (Yearly total ~71.88)
-  // Advanced: $19.99/mo -> ~$11.99/mo (Yearly total ~143.88)
-  // Unlimited: $49.99/mo -> ~$29.99/mo (Yearly total ~359.88)
-
   const plans = [
     {
       name: "Free",
@@ -112,8 +108,8 @@ export const Pricing: React.FC<PricingProps> = ({ onStart }) => {
           </div>
         </div>
 
-        {/* Pricing Cards - 4 Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        {/* Pricing Cards - Width reduced to max-w-6xl for coordination */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {plans.map((plan, idx) => (
             <div 
               key={idx}
@@ -195,14 +191,6 @@ export const Pricing: React.FC<PricingProps> = ({ onStart }) => {
             >
                 Try It Now <ArrowRight size={20} />
              </button>
-        </div>
-
-        {/* Guarantee */}
-        <div className="mt-12 flex flex-col items-center justify-center text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-full border border-slate-100 text-slate-600 text-xs">
-                <ShieldCheck size={14} className="text-green-500" />
-                <span><strong>3-Day Money-Back Guarantee.</strong> Risk-free trial.</span>
-            </div>
         </div>
       </div>
     </section>

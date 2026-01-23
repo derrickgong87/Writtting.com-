@@ -4,17 +4,19 @@ import React from 'react';
 // It serves as the "Image replacement" for the top section.
 export const ComparisonDemo: React.FC = () => {
   return (
-    <section className="py-16 bg-white relative">
+    <section className="py-24 bg-white relative">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">See the Difference</h2>
-          <p className="text-slate-500 max-w-xl mx-auto">
+        <div className="text-center mb-16">
+          {/* Header matched to TextHumanizer (text-3xl md:text-5xl font-extrabold) */}
+          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">See the Difference</h2>
+          {/* Description matched to TextHumanizer (text-lg text-slate-500) */}
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
             Our advanced algorithms completely restructure AI text to bypass even the most rigorous detection systems like Turnitin.
           </p>
         </div>
 
-        {/* The Visual Comparison Container */}
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative">
+        {/* The Visual Comparison Container - Width reduced for better proportions */}
+        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative">
             
             {/* VS Badge */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 hidden lg:flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-xl border-4 border-slate-50 font-black text-2xl text-slate-300 italic">
