@@ -107,7 +107,7 @@ const App: React.FC = () => {
     <div className="min-h-screen flex flex-col font-sans">
       <Header 
         onLogin={() => setIsAuthOpen(true)} 
-        onNavigate={handleNav} 
+        onNavigate={handleNav}
       />
       
       <main className="flex-grow">
