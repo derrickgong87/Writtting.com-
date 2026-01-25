@@ -397,14 +397,11 @@ export const Blog: React.FC = () => {
     <div className="pt-32 pb-20 bg-slate-50 min-h-screen">
       <div className="container mx-auto px-6">
         
-        <div className="text-center mb-16 max-w-2xl mx-auto">
-          <span className="text-brand-600 font-bold tracking-wider text-sm uppercase mb-2 block">Our Blog</span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+        {/* Updated Header - Minimalist 'Insights on AI & Writing' */}
+        <div className="text-center mb-24 max-w-4xl mx-auto pt-10">
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter leading-none">
             Insights on AI & Writing
           </h1>
-          <p className="text-lg text-slate-500">
-            Expert advice, industry news, and tutorials to help you stay ahead in the age of artificial intelligence.
-          </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
