@@ -982,10 +982,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ isLoggedIn, onShowAuth }) 
              <button 
                 onClick={handleHumanize}
                 disabled={isProcessing || !inputText}
-                className={`px-8 py-3 rounded-lg font-bold text-white shadow-lg transition-all flex items-center gap-2 ${
-                  isProcessing || !inputText 
-                    ? 'bg-brand-300 cursor-not-allowed' 
-                    : 'bg-brand-500 hover:bg-brand-600 shadow-brand-500/30'
+                className={`px-8 py-3 rounded-lg font-bold text-white shadow-lg transition-all flex items-center gap-2 bg-brand-600 hover:bg-brand-500 shadow-brand-500/30 ${
+                  isProcessing ? 'cursor-not-allowed opacity-90' : !inputText ? 'cursor-not-allowed' : ''
                 }`}
              >
                 {isProcessing ? <Loader2 size={18} className="animate-spin" /> : <Sparkles size={18} />}
