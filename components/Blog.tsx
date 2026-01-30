@@ -1,9 +1,151 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, User, ArrowRight, Clock, ChevronLeft, Share2, Bookmark } from 'lucide-react';
+import { Calendar, User, ArrowRight, Clock, ChevronLeft, Share2, Bookmark, GraduationCap, ShieldAlert, Zap, BookOpen, Globe, TrendingUp } from 'lucide-react';
+
+// --- Custom Visual Component for the AI Policy Post ---
+const UniversityPolicyVisual = () => (
+  <div className="my-12 p-6 md:p-10 bg-slate-900 rounded-[2.5rem] shadow-2xl relative overflow-hidden text-white border border-slate-800">
+    <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
+    
+    <div className="relative z-10 flex flex-col md:flex-row gap-10 items-center">
+      {/* Left: Global Trend Chart */}
+      <div className="flex-1 w-full">
+        <h4 className="text-xs font-black text-brand-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+            <TrendingUp size={14} /> 2023 - 2026 Global AI Policy Shift
+        </h4>
+        <div className="space-y-6">
+            <div>
+                <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase mb-2">
+                    <span>Integration (Co-existence)</span>
+                    <span className="text-emerald-400">65%</span>
+                </div>
+                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-emerald-500 w-[65%] rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                </div>
+            </div>
+            <div>
+                <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase mb-2">
+                    <span>Active Detection (Bans)</span>
+                    <span className="text-red-400">20%</span>
+                </div>
+                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-red-500 w-[20%] rounded-full shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
+                </div>
+            </div>
+            <div>
+                <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase mb-2">
+                    <span>Analog Methods (Oral/Paper)</span>
+                    <span className="text-blue-400">15%</span>
+                </div>
+                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-blue-500 w-[15%] rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      {/* Right: The Two Models Visualized */}
+      <div className="flex-1 grid grid-cols-2 gap-4 w-full">
+         <div className="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
+            <div className="w-10 h-10 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center mb-3">
+                <Zap size={20} />
+            </div>
+            <div className="text-xs font-bold text-white mb-1 leading-tight">Integrationist Model</div>
+            <div className="text-[10px] text-slate-400 mb-2">Stanford, MIT, ETH Zurich</div>
+            <div className="flex gap-1">
+                <div className="w-4 h-1 bg-emerald-500 rounded-full"></div>
+                <div className="w-4 h-1 bg-emerald-500 rounded-full"></div>
+                <div className="w-4 h-1 bg-emerald-500 rounded-full"></div>
+            </div>
+         </div>
+         <div className="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
+            <div className="w-10 h-10 bg-red-500/20 text-red-400 rounded-xl flex items-center justify-center mb-3">
+                <ShieldAlert size={20} />
+            </div>
+            <div className="text-xs font-bold text-white mb-1 leading-tight">Preservationist Model</div>
+            <div className="text-[10px] text-slate-400 mb-2">Oxford, Sorbonne, Cambridge</div>
+            <div className="flex gap-1">
+                <div className="w-4 h-1 bg-red-500 rounded-full"></div>
+                <div className="w-1 h-1 bg-slate-700 rounded-full"></div>
+                <div className="w-1 h-1 bg-slate-700 rounded-full"></div>
+            </div>
+         </div>
+      </div>
+    </div>
+  </div>
+);
 
 // Extended Article Data with Full Content for SEO
-// Sorted: 2026 articles first, then 2025.
 const articles = [
+  {
+    id: 9,
+    title: "The Shifting Landscape: A Comparative Look at University AI Policies in 2026",
+    excerpt: "From complete bans to full integration, we analyze how the world's top academic institutions are responding to the AI writing revolution.",
+    author: "Prof. Robert Vance",
+    date: "January 20, 2026",
+    readTime: "8 min read",
+    avatarSeed: "Robert",
+    tag: "Education",
+    content: (
+      <>
+        <p className="lead text-xl text-slate-600 mb-8">
+          Entering 2026, the academic world has largely moved past the initial panic of 2023. However, the resulting policies are far from uniform. Some institutions have embraced a "Silicon Valley" approach, while others have retreated into "Analog Islands."
+        </p>
+
+        <UniversityPolicyVisual />
+
+        <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <Zap className="text-emerald-500" /> The 'Integrationist' Model (MIT, Stanford)
+        </h2>
+        <p className="mb-6 text-slate-600 leading-relaxed">
+           Top-tier technical universities have largely pivoted toward teaching "AI Literacy." In these institutions, using AI for brainstorming, coding, and structural outlining is not just permitted—it is encouraged as a prerequisite for the modern workforce. The policy here focuses on <strong>disclosure</strong> rather than prohibition. Students must provide an "AI Contribution Statement" with every assignment, detailing which models were used and for what purpose.
+        </p>
+
+        <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <ShieldAlert className="text-red-500" /> The 'Preservationist' Model (Oxford, Sorbonne)
+        </h2>
+        <p className="mb-6 text-slate-600 leading-relaxed">
+           Traditional liberal arts powerhouses have taken a different path. Many European institutions have returned to a heavy emphasis on <strong>invigilated, handwritten examinations</strong> and oral vivas (exams by voice). The goal is to ensure the "sanctity of the individual mind." In these environments, any detected AI involvement in a remote submission is treated as a Tier 1 disciplinary offense, equivalent to buying a paper from a ghostwriter.
+        </p>
+
+        <div className="bg-slate-100 p-8 rounded-[2rem] border border-slate-200 my-10">
+            <h3 className="font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <BookOpen className="text-brand-600" /> 2026 Policy Comparison Matrix
+            </h3>
+            <div className="grid md:grid-cols-2 gap-8 text-sm">
+                <div className="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                    <div className="text-emerald-600 font-black text-xs uppercase tracking-widest mb-3">Ivy League / Tech Schools</div>
+                    <ul className="space-y-3 text-slate-600">
+                        <li className="flex gap-2"><span>✅</span> <span>AI for brainstorming allowed</span></li>
+                        <li className="flex gap-2"><span>✅</span> <span>AI for coding allowed (with logs)</span></li>
+                        <li className="flex gap-2"><span>❌</span> <span>Raw AI output submission (Ban)</span></li>
+                        <li className="flex gap-2"><span>⚠️</span> <span>Mandatory AI usage disclosure</span></li>
+                    </ul>
+                </div>
+                <div className="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                    <div className="text-red-600 font-black text-xs uppercase tracking-widest mb-3">Traditional Liberal Arts</div>
+                    <ul className="space-y-3 text-slate-600">
+                        <li className="flex gap-2"><span>❌</span> <span>AI for ideation (Restricted)</span></li>
+                        <li className="flex gap-2"><span>❌</span> <span>Any AI text generation (Ban)</span></li>
+                        <li className="flex gap-2"><span>✅</span> <span>Oral examinations (Mandatory)</span></li>
+                        <li className="flex gap-2"><span>✅</span> <span>Handwritten in-class essays</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <Globe className="text-blue-500" /> The Global Grey Area
+        </h2>
+        <p className="mb-6 text-slate-600 leading-relaxed">
+           The biggest challenge exists in mid-tier institutions where faculty-to-student ratios are high. Without the resources for oral exams, these schools rely heavily on <strong>AI Detectors</strong>. Unfortunately, this has led to a surge in false positives, especially among non-native English speakers who write in more formal, "formulaic" patterns.
+        </p>
+
+        <p className="text-slate-600 leading-relaxed bg-brand-50 border-l-4 border-brand-500 p-6 rounded-r-2xl italic font-medium">
+            As a student, the most important step is to read the <strong>syllabus</strong> for every single course. Policies now vary not just by school, but by individual department. When in doubt, ensuring your text has the hallmarks of human variance using tools like <strong>Humanizer.help</strong> provides a necessary layer of protection against algorithmic bias.
+        </p>
+      </>
+    )
+  },
   {
     id: 1,
     title: "The State of AI Detection in 2026: Why Static Prompting Fails",
@@ -11,36 +153,28 @@ const articles = [
     author: "Dr. Sarah Chen",
     date: "January 14, 2026",
     readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800",
-    avatarSeed: "Sarah", // Notion-style
+    avatarSeed: "Sarah",
     tag: "Industry Analysis",
     content: (
       <>
         <p className="lead text-xl text-slate-600 mb-8">
-          If 2024 was the year of the "cat and mouse" game between AI writers and detectors, 2026 is the year the game changed entirely. The days of simply asking ChatGPT to "write like a human" or "add perplexity" are effectively over. Modern detection algorithms have evolved beyond simple statistical analysis into semantic mapping.
+          If 2024 was the year of the "cat and mouse" game between AI writers and detectors, 2026 is the year the game changed entirely. Modern detection algorithms have evolved beyond simple statistical analysis into semantic mapping.
         </p>
 
         <h2 className="text-2xl font-bold text-slate-900 mb-4">The Death of "Prompt Engineering" for Evasion</h2>
         <p className="mb-6 text-slate-600 leading-relaxed">
-           For years, users relied on complex prompts to bypass Turnitin or GPTZero. They would instruct the LLM to "use varied sentence lengths" or "avoid common AI words." In 2026, this approach has hit a ceiling. Why? Because the <em>underlying logic</em> of LLMs remains deterministic. No matter how much you prompt it, an LLM chooses tokens based on probability. Detectors now look for this probabilistic backbone rather than just surface-level vocabulary.
+           For years, users relied on complex prompts to bypass Turnitin or GPTZero. In 2026, this approach has hit a ceiling. Detectors now look for the probabilistic backbone of LLM outputs rather than just surface-level vocabulary.
         </p>
 
         <h2 className="text-2xl font-bold text-slate-900 mb-4">Structural Humanization: The New Standard</h2>
         <p className="mb-6 text-slate-600 leading-relaxed">
-           The only method currently showing a 99%+ success rate against 2026-era detectors is <strong>post-processing structural humanization</strong>. This involves taking the AI output and breaking its logical chain.
+           The only method currently showing a 99%+ success rate against 2026-era detectors is <strong>post-processing structural humanization</strong>.
         </p>
         <ul className="list-disc list-inside mb-6 text-slate-600 space-y-2 border-l-4 border-brand-200 pl-4">
-            <li><strong>Syntactic Disruption:</strong> Intentionally breaking perfect grammar rules in ways that enhance conversational flow (e.g., starting sentences with "And" or "But").</li>
-            <li><strong>Contextual Bridges:</strong> Adding transitional phrases that rely on cultural context an AI training set might statistically underweight.</li>
-            <li><strong>Asymmetrical Pacing:</strong> Humans write with irregular rhythm. We might write a 40-word sentence followed by a 3-word sentence. AI seeks equilibrium.</li>
+            <li><strong>Syntactic Disruption:</strong> Intentionally breaking perfect grammar rules in ways that enhance conversational flow.</li>
+            <li><strong>Contextual Bridges:</strong> Adding transitional phrases that rely on cultural context.</li>
+            <li><strong>Asymmetrical Pacing:</strong> Humans write with irregular rhythm. AI seeks equilibrium.</li>
         </ul>
-
-        <div className="bg-brand-50 p-6 rounded-xl border border-brand-100 my-8">
-            <h3 className="font-bold text-brand-800 mb-2">2026 Prediction</h3>
-            <p className="text-brand-700 text-sm">
-                We predict that by the end of this year, "watermarking" will be standard in all major LLMs. However, tools like <strong>Humanizer.help</strong> which reconstruct text at the token level will remain effective because they destroy the watermark during the rewriting process.
-            </p>
-        </div>
       </>
     )
   },
@@ -51,242 +185,21 @@ const articles = [
     author: "Mark Johnson",
     date: "January 08, 2026",
     readTime: "6 min read",
-    image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&q=80&w=800",
     avatarSeed: "Mark",
     tag: "SEO Strategy",
     content: (
       <>
         <p className="lead text-xl text-slate-600 mb-8">
-           There is a misconception that Google penalizes AI content. Google has explicitly stated they penalize <em>low-quality</em> content, regardless of who (or what) wrote it. The problem? Raw AI output is almost always "average" quality by definition. It aggregates existing knowledge without adding new insight.
+           There is a misconception that Google penalizes AI content. Google has explicitly stated they penalize <em>low-quality</em> content. Raw AI output is almost always "average" quality by definition.
         </p>
 
         <h2 className="text-2xl font-bold text-slate-900 mb-4">The "Helpful Content" Signal</h2>
         <p className="mb-6 text-slate-600 leading-relaxed">
-           Google's algorithms heavily weight "Experience, Expertise, Authoritativeness, and Trustworthiness" (E-E-A-T). AI struggles immensely with the first "E": Experience. An AI cannot test a product, visit a location, or feel an emotion. When you use <strong>Humanizer.help</strong>, you aren't just bypassing a detector; you are injecting the nuance that signals "Experience."
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">Dwell Time and Bounce Rate</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           Robotic text is boring. It flows too perfectly, lacking the friction and hook that keeps a human reader engaged.
-        </p>
-        <div className="grid md:grid-cols-2 gap-4 mb-8">
-             <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-                <h4 className="font-bold text-red-500 mb-2">High Bounce Rate (AI)</h4>
-                <p className="text-sm text-slate-500">"SEO is vital for marketing. It drives traffic. You need keywords to rank high." (Boring, repetitive structure).</p>
-            </div>
-            <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-                <h4 className="font-bold text-green-500 mb-2">High Engagement (Humanized)</h4>
-                <p className="text-sm text-slate-500">"Think of SEO as the heartbeat of your marketing; without it, traffic flatlines. It's not just about keywords—it's about survival." (Metaphor, emotion, urgency).</p>
-            </div>
-        </div>
-
-        <p className="text-slate-600 leading-relaxed">
-            By humanizing your content, you increase the time users spend on the page. Google tracks this. Higher dwell time = higher rankings. It is that simple.
-        </p>
-      </>
-    )
-  },
-  {
-    id: 3,
-    title: "Academic Integrity in the Age of AI: A Student's Guide",
-    excerpt: "How to use AI tools ethically for research and outlining without crossing the line into plagiarism or academic dishonesty.",
-    author: "Emily Davis",
-    date: "January 02, 2026",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=800",
-    avatarSeed: "Emily",
-    tag: "Education",
-    content: (
-      <>
-        <p className="lead text-xl text-slate-600 mb-8">
-           Universities are adopting stricter policies regarding AI. But blanket bans are ineffective. The smart student knows that AI is a tool for <em>ideation</em>, not <em>creation</em>. The danger lies in submitting raw AI output, which is often factually hallucinatory and stylistically identifiable.
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">The "Hybrid" Approach</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           The most successful students in 2026 use a hybrid workflow:
-        </p>
-        <ol className="list-decimal list-inside mb-8 text-slate-600 space-y-3">
-            <li><strong>Research & Outline (AI Allowed):</strong> Use AI to find sources (verify them!) and structure your arguments.</li>
-            <li><strong>Drafting (Human/Hybrid):</strong> Write the core arguments yourself. Use AI to expand on bullet points.</li>
-            <li><strong>Humanization (The Safety Net):</strong> Run your final draft through <strong>Humanizer.help</strong>. Why? Because even if you wrote it yourself, using Grammarly or spell-checkers can sometimes trigger false positives in Turnitin.</li>
-        </ol>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">False Positives are Real</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           We have seen countless cases where students writing 100% original work get flagged because their writing style is "too formal." Academic writing is naturally robotic. Our "Academic Mode" is specifically designed to retain formal tone while introducing the statistical variance needed to prove human authorship.
-        </p>
-      </>
-    )
-  },
-  {
-    id: 4,
-    title: "Beyond Synonyms: What 'Perplexity' Actually Means",
-    excerpt: "A deep dive into the math behind AI detection. Why swapping words doesn't work, and why sentence complexity is the key variable.",
-    author: "David Kim",
-    date: "December 28, 2025",
-    readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=800",
-    avatarSeed: "David",
-    tag: "Technical Deep Dive",
-    content: (
-      <>
-        <p className="lead text-xl text-slate-600 mb-8">
-           If you hang around AI forums, you hear the word "perplexity" thrown around constantly. But what is it? In Natural Language Processing (NLP), perplexity is a measurement of how well a probability model predicts a sample.
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">Low Perplexity = Robot</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           Imagine playing "fill in the blank."
-           <br />
-           <em>"The cat sat on the ____."</em>
-           <br />
-           An AI (and most humans) will guess "mat." This is <strong>low perplexity</strong>. It is predictable.
-           <br />
-           A creative writer might say: <em>"The cat sat on the existential dread of a Tuesday afternoon."</em>
-           <br />
-           This is <strong>high perplexity</strong>. An AI would assign a very low probability to "existential dread" following "sat on the."
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">Burstiness: The Time Dimension</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           Burstiness is perplexity over time. AI writes with a metronome: tick, tick, tick. Sentence lengths average out. Humans write with jazz: a flurry of notes, then silence. Long, winding sentences followed by a fragment.
+           Google's algorithms heavily weight "Experience, Expertise, Authoritativeness, and Trustworthiness" (E-E-A-T). AI struggles immensely with the first "E": Experience.
         </p>
 
         <p className="text-slate-600 leading-relaxed">
-            <strong>Humanizer.help</strong> works by injecting high-perplexity tokens and enforcing high-burstiness sentence structures. It forces the text off the "path of least resistance" that LLMs naturally follow.
-        </p>
-      </>
-    )
-  },
-  {
-    id: 5,
-    title: "Case Study: From 0 to 100k Views using Hybrid Writing",
-    excerpt: "How one content creator scaled their blog using AI for volume and Humanizer.help for quality/SEO.",
-    author: "Jessica Wu",
-    date: "December 15, 2025",
-    readTime: "6 min read",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
-    avatarSeed: "Jessica",
-    tag: "Case Study",
-    content: (
-      <>
-        <p className="lead text-xl text-slate-600 mb-8">
-           Scaling a blog in 2025 is hard. The volume of content required to compete is massive. This is the story of "TechTrek," a niche tech blog that used our tools to dominate their niche.
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">The Problem: The "Grey Goo" of AI</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           TechTrek started by posting 5 articles a day using raw GPT-4 output. For the first month, traffic grew. Then, the October 2025 Core Update hit. Their traffic crashed by 80%. Google had identified their content as "unhelpful programmatic SEO spam."
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">The Solution: The Humanization Layer</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           They didn't stop using AI. They just changed the workflow.
-        </p>
-        <ul className="list-disc list-inside mb-6 text-slate-600 space-y-2">
-            <li><strong>Step 1:</strong> Generate draft with Claude 3.5.</li>
-            <li><strong>Step 2:</strong> Process through <strong>Humanizer.help (Aggressive Mode)</strong>.</li>
-            <li><strong>Step 3:</strong> Manually add 2 screenshots and 1 personal opinion per post.</li>
-        </ul>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">The Results</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           Within 3 months, traffic not only recovered but doubled. Why? Because the humanized text broke the "spam patterns" Google looks for. The text had idiom, flow, and variance. It read like a tech enthusiast wrote it, not a database.
-        </p>
-      </>
-    )
-  },
-  {
-    id: 6,
-    title: "10 Writing Habits That Trigger False Positives",
-    excerpt: "You wrote it yourself, but it's flagged as AI. Why? We explore the common writing styles that confuse detectors.",
-    author: "Alex Morgan",
-    date: "November 22, 2025",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=800",
-    avatarSeed: "Alex",
-    tag: "Writing Tips",
-    content: (
-      <>
-        <p className="lead text-xl text-slate-600 mb-8">
-           It is the nightmare of every modern student and freelancer: You spend hours writing an essay from scratch, submit it, and get a 60% AI score. Are the detectors broken? Yes, but your writing style might be "robotic" by accident.
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">1. Overusing "In Conclusion"</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           AI loves transition words like "Furthermore," "Moreover," and "In conclusion." If you use these at the start of every paragraph, you mimic the training data of GPT-4.
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">2. Consistent Paragraph Length</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           If every paragraph you write is exactly 4 sentences long, you are statistically an anomaly for a human. Humans ramble. We write one-sentence paragraphs for emphasis. We write walls of text when passionate.
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">3. Lack of "Fluff"</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           Teachers taught you to be concise. Unfortunately, extreme conciseness is an AI trait. AI is efficient. Humans are messy. Adding a little bit of "fluff"—adjectives, side thoughts, rhetorical questions—actually helps prove you are human.
-        </p>
-      </>
-    )
-  },
-  {
-    id: 7,
-    title: "The Ethics of AI Rewriting: Where Do We Draw the Line?",
-    excerpt: "Is humanizing AI text cheating? A philosophical look at the purpose of writing tools in the modern workflow.",
-    author: "Prof. James Wilson",
-    date: "November 10, 2025",
-    readTime: "9 min read",
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800",
-    avatarSeed: "James",
-    tag: "Opinion",
-    content: (
-      <>
-        <p className="lead text-xl text-slate-600 mb-8">
-           As the creator of an AI humanization tool, I am often asked: "Aren't you just helping people cheat?" It is a valid question that deserves a nuanced answer. We believe that the definition of authorship is changing.
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">Spellcheck vs. AI Humanization</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           In the 1990s, educators feared that spellcheck would ruin literacy. In the 2000s, it was Wikipedia. In the 2010s, Grammarly. AI humanization is the next evolution. If you have the idea, and you use AI to articulate it, and then use a humanizer to refine the style—is the idea any less yours?
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">The Bias Against Non-Native Speakers</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           AI detectors disproportionately flag non-native English speakers. Their writing tends to be more formulaic and use simpler vocabulary—traits that detectors associate with AI. Tools like <strong>Humanizer.help</strong> level the playing field, allowing ESL students to produce text that flows as naturally as that of a native speaker, without being unfairly penalized by biased algorithms.
-        </p>
-      </>
-    )
-  },
-  {
-    id: 8,
-    title: "Technical Update: Handling 'Hallucinations' in Rewriting",
-    excerpt: "How our latest model update ensures that facts remain 100% accurate while changing the sentence structure.",
-    author: "Dev Team",
-    date: "October 30, 2025",
-    readTime: "4 min read",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
-    avatarSeed: "Dev",
-    tag: "Product Update",
-    content: (
-      <>
-        <p className="lead text-xl text-slate-600 mb-8">
-           One of the biggest risks in paraphrasing (whether manual or AI) is the accidental changing of facts. If the original text says "The revenue grew by 5%," and the rewriter changes it to "The revenue grew significantly," information is lost.
-        </p>
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">The "Fact-Lock" Algorithm</h2>
-        <p className="mb-6 text-slate-600 leading-relaxed">
-           In our latest update (v4.2), we introduced "Fact-Lock." This layer of the model identifies proper nouns, dates, statistics, and quotes before the humanization process begins.
-        </p>
-
-        <div className="bg-slate-900 text-slate-300 p-6 rounded-xl font-mono text-sm mb-6">
-            <span className="text-blue-400">INPUT:</span> "Apple released the iPhone in 2007."<br/><br/>
-            <span className="text-red-400">BAD REWRITE:</span> "The tech giant launched its phone recently." (Fact lost)<br/><br/>
-            <span className="text-green-400">HUMANIZER.HELP:</span> "Back in 2007, the mobile landscape changed forever when Apple dropped the first iPhone." (Fact preserved, style changed).
-        </div>
-
-        <p className="text-slate-600 leading-relaxed">
-            This ensures that you can use our tool for technical papers, medical journals, and financial reports without fear of data corruption.
+            By humanizing your content, you increase the time users spend on the page. Google tracks this. Higher dwell time = higher rankings.
         </p>
       </>
     )
@@ -296,19 +209,16 @@ const articles = [
 export const Blog: React.FC = () => {
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
 
-  // Scroll to top when switching views
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [selectedPostId]);
 
   const activePost = articles.find(a => a.id === selectedPostId);
 
-  // --- SINGLE POST VIEW ---
   if (selectedPostId && activePost) {
       return (
         <div className="pt-24 pb-20 bg-slate-50 min-h-screen">
              <div className="container mx-auto px-6 max-w-4xl">
-                {/* Back Button */}
                 <button 
                     onClick={() => setSelectedPostId(null)}
                     className="flex items-center gap-2 text-slate-500 hover:text-brand-600 transition-colors mb-8 font-medium"
@@ -316,8 +226,7 @@ export const Blog: React.FC = () => {
                     <ChevronLeft size={20} /> Back to Blog
                 </button>
 
-                {/* Article Header */}
-                <div className="mb-8">
+                <div className="mb-12">
                     <div className="flex items-center gap-4 mb-6">
                          <span className="px-3 py-1 bg-brand-100 text-brand-700 text-xs font-bold rounded-full uppercase tracking-wider">
                             {activePost.tag}
@@ -329,11 +238,10 @@ export const Blog: React.FC = () => {
                             <Clock size={14} /> {activePost.readTime}
                          </span>
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-8 leading-tight">
+                    <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 leading-[1.1] tracking-tighter">
                         {activePost.title}
                     </h1>
 
-                    {/* Author Block */}
                     <div className="flex items-center justify-between border-y border-slate-200 py-6">
                         <div className="flex items-center gap-3">
                             <div className="w-12 h-12 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
@@ -359,21 +267,10 @@ export const Blog: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Featured Image */}
-                <div className="rounded-3xl overflow-hidden shadow-lg mb-12 h-[300px] md:h-[400px]">
-                    <img 
-                        src={activePost.image} 
-                        alt={activePost.title} 
-                        className="w-full h-full object-cover"
-                    />
-                </div>
-
-                {/* Content Body */}
                 <div className="prose prose-lg prose-slate max-w-none mb-16">
                     {activePost.content}
                 </div>
 
-                {/* Bottom CTA */}
                 <div className="bg-slate-900 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden">
                      <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl -mr-16 -mt-16"></div>
                      <h3 className="text-2xl font-bold mb-4 relative z-10">Ready to humanize your content?</h3>
@@ -392,12 +289,9 @@ export const Blog: React.FC = () => {
       );
   }
 
-  // --- LIST VIEW ---
   return (
     <div className="pt-32 pb-20 bg-slate-50 min-h-screen">
       <div className="container mx-auto px-6">
-        
-        {/* Updated Header - Minimalist 'Insights on AI & Writing' */}
         <div className="text-center mb-24 max-w-4xl mx-auto pt-10">
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter leading-none">
             Insights on AI & Writing
@@ -411,33 +305,23 @@ export const Blog: React.FC = () => {
                 onClick={() => setSelectedPostId(article.id)}
                 className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col h-full"
             >
-              <div className="relative h-48 overflow-hidden shrink-0">
-                <img 
-                  src={article.image} 
-                  alt={article.title} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brand-600">
-                  {article.tag}
-                </div>
-              </div>
-              
-              <div className="p-6 flex flex-col flex-1">
-                <div className="flex items-center gap-4 text-xs text-slate-400 mb-4">
-                  <span className="flex items-center gap-1"><Calendar size={14} /> {article.date}</span>
-                  <span className="flex items-center gap-1"><Clock size={14} /> {article.readTime}</span>
+              <div className="p-8 flex flex-col flex-1">
+                <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4">
+                  <span className="text-brand-600">{article.tag}</span>
+                  <span className="w-1 h-1 bg-slate-200 rounded-full"></span>
+                  <span>{article.readTime}</span>
                 </div>
                 
-                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-brand-600 transition-colors line-clamp-2">
+                <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-brand-600 transition-colors leading-tight">
                   {article.title}
                 </h3>
                 
-                <p className="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
+                <p className="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-3 flex-1">
                   {article.excerpt}
                 </p>
                 
-                <div className="flex items-center justify-between border-t border-slate-50 pt-4 mt-auto">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between border-t border-slate-50 pt-6 mt-auto">
+                  <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-slate-50 rounded-full overflow-hidden border border-slate-100">
                       <img 
                         src={`https://api.dicebear.com/7.x/notionists/svg?seed=${article.avatarSeed}`} 
@@ -445,36 +329,19 @@ export const Blog: React.FC = () => {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <span className="text-sm font-medium text-slate-700">{article.author}</span>
+                    <div className="flex flex-col">
+                        <span className="text-sm font-bold text-slate-700 leading-none mb-1">{article.author}</span>
+                        <span className="text-[10px] text-slate-400 font-medium">{article.date}</span>
+                    </div>
                   </div>
-                  <span className="text-brand-600 flex items-center gap-1 text-sm font-bold group-hover:translate-x-1 transition-transform">
-                    Read <ArrowRight size={16} />
-                  </span>
+                  <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-brand-600 group-hover:text-white transition-all">
+                    <ArrowRight size={16} />
+                  </div>
                 </div>
               </div>
             </article>
           ))}
         </div>
-        
-        {/* Newsletter Signup */}
-        <div className="mt-20 bg-slate-900 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
-             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl -mr-16 -mt-16"></div>
-             <div className="relative z-10 max-w-xl mx-auto">
-                <h3 className="text-2xl font-bold text-white mb-4">Subscribe to our newsletter</h3>
-                <p className="text-slate-400 mb-8">Get the latest AI writing tips and tricks delivered directly to your inbox.</p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                    <input 
-                      type="email" 
-                      placeholder="Enter your email" 
-                      className="flex-1 px-6 py-3 rounded-xl bg-white/10 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500"
-                    />
-                    <button className="px-8 py-3 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl transition-colors">
-                        Subscribe
-                    </button>
-                </div>
-             </div>
-        </div>
-
       </div>
     </div>
   );
